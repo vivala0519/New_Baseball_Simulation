@@ -1,12 +1,12 @@
 from pymongo import MongoClient
-client = MongoClient('localhost', 27017)
-db = client.project
-
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 
+client = MongoClient('localhost', 27017)
+db = client.project
 driver = webdriver.Chrome()
 
+# 연도범위 동안 팀리스트 스크래핑 후 DB에 저장
 yearScope = range(1982, 2022)
 team_List = ['SK', 'SSG', '삼성', 'NC', '한화', 'LG', '롯데', 'KIA', 'kt', '히어로즈', '두산', '해태', '현대', '청보',
              '삼미', 'MBC', 'OB', '태평양', '빙그레', '쌍방울']
@@ -47,7 +47,7 @@ for year in yearScope:
                 'double_hit': double_hit, 'triple_hit': triple_hit, 'home_run': home_run, 'BB': BB, 'SB': SB,
                 'Dead_Ball': Dead_Ball, 'one_hit': one_hit, 'year': year, 'team': team
             }
-            db.kbo_stats.insert_one(doc)
+            # db.kbo_batter_stat.insert_one(doc)
             print(year, team, name, '저장 완료')
 
 driver.quit()
