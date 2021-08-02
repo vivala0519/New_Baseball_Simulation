@@ -9,7 +9,11 @@ $(document).on('change', '#yearSelect', function () {
         success: function(data) {
             $('#yyyy').remove();
             $('#team').empty();
+            $('#position').empty();
+            $('#player').empty();
             $('#team').append('<option>팀 선택</option>')
+            $('#position').append('<option>포지션 선택</option>')
+            $('#player').append('<option>선수 선택</option>')
             console.log(data)
             $.each(data, function(index, item){
                 let output = '<option>';

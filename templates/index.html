@@ -2,6 +2,7 @@
 <html lang="ko">
 
     <head>
+        <link href="static/images/icon_2.jpg" rel="shortcut icon" type="image/x-icon">
         <!-- Webpage Title -->
         <title>BaSi</title>
 
@@ -10,15 +11,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="static/bootstrap.min.css">
+        <link rel="stylesheet" href="static/css/bootstrap.min.css">
         <!-- self CSS -->
-        <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+        <link href="static/css/style.css" rel="stylesheet">
         <!-- JS -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
                 integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
                 crossorigin="anonymous"></script>
-        <script src="{{ url_for('static', filename='page.js') }}" > </script>
+        <script src="static/js/page.js" > </script>
 
         <!-- 구글폰트 -->
         <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
@@ -58,16 +59,153 @@
     <body>
         <div class="container">
             <div class="header">
+                <img class='header_image' src="static/images/icon_1.webp"/>
                 <h1>Baseball Simulation PlayGround</h1>
                 <p>by Dzeko</p>
             </div>
+            <br>
+            <div class="home_list">
+                    <table class="home">
+                        <tr>
+                            <td colspan="3">Home</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>SP</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>RP</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>CP</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                    </table>
+                </div>
+            <div class="away_list">
+                    <table class="away">
+                        <tr>
+                            <td colspan="3">Away</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>SP</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>RP</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                        <tr>
+                            <td>CP</td>
+                            <td>player</td>
+                            <td><button class="cancel_button">X</button></td>
+                        </tr>
+                    </table>
+                </div>
+            <div class="select_and_body">
             <div class="select_player">
                 <div class="search">
-                    <span class="search_modal">팀 OR 선수 검색 </span>
+                    <div class="search_modal"><p class="search_info">팀 OR 선수 검색</p>
                     <input id="search1" type="text" name="q" class="searchStr">
-                    <button id="search_button" class="btn btn-success"type="submit" data-toggle="modal" data-target="#myModal">검색</button>
+                    <button id="search_button" class="my_button"type="submit" data-toggle="modal" data-target="#myModal">검색</button>
                     <!--<button id="icon" type="submit" ><span class="glyphicon glyphicon-search"></span></button>-->
-
+                     </div>
                      <!-- The Modal -->
                     <div class="modal" id="myModal">
                     <div class="modal-dialog">
@@ -95,8 +233,7 @@
                     </div>
 
                 </div>
-                <br>
-                <div>
+                <div class="select_container">
                     <table class="tc">
                     <tr>
                         <td>Home/Away</td>
@@ -105,7 +242,7 @@
                         <!--<td>Hitter/Pitcher</td>-->
                         <td>Position</td>
                         <td>Player</td>
-                        <td rowspan="2"><button class="btn btn-success">추가</button></td>
+                        <td rowspan="2"><button id="add_button" class="my_button">추가</button></td>
                     </tr>
                     <tr>
                         <td>
@@ -162,7 +299,6 @@
                         <td>
                             <select class="sl" id="team">
                                 <option value="--" selected="selected">팀 선택</option>
-
                             </select>
                         </td>
                         <!--<td>-->
@@ -189,82 +325,15 @@
                         </td>
                         <td>
                             <select class="sl" id="player">
-                                <option value="" selected="" disabled="" hidden="">선수명</option>
+                                <option value="" selected="selected">선수명</option>
                             </select>
                         </td>
                     </tr>
                 </table>
                 </div>
-            </div><br><br>
+            </div><br>
             <div class="body">
-                <div class="home_list">
-                    <table class="home">
-                        <tr>
-                            <td colspan="3">Home</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>SP</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>RP</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>CP</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="ground">
+                <div class="ground"><br>
                     <div class="score_board">
                         <table class="score_board_table">
                             <tbody style="border-right-width: 10px; border-color: #01DF74;">
@@ -344,77 +413,12 @@
                         <div class="inning">11회</div>
                         <div class="inning">12회</div>
                         <div class="inning">기록</div>
-                        <div class="gap">&nbsp;</div><br><br>
-                        <div class="record_board">경기 시작!</div>
+                        <div class="gap">&nbsp;</div><br>
+                        <div class="record_board"><br>경기 시작!</div>
                     </div>
                 </div>
-                <div class="away_list">
-                    <table class="away">
-                        <tr>
-                            <td colspan="3">Away</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>SP</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>RP</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                        <tr>
-                            <td>CP</td>
-                            <td>player</td>
-                            <td><button class="btn-xs btn-outline-success">X</button></td>
-                        </tr>
-                    </table>
-                </div>
+
+            </div>
             </div>
         </div>
     </body>
