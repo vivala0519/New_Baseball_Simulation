@@ -3,7 +3,7 @@
 
     <head>
         <!-- Webpage Title -->
-        <title>Ba-Si</title>
+        <title>BaSi</title>
 
         <!-- Required meta tags -->
         <meta charset="utf-8">
@@ -11,12 +11,14 @@
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="static/bootstrap.min.css">
-
+        <!-- self CSS -->
+        <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
         <!-- JS -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
                 integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
                 crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='page.js') }}" > </script>
 
         <!-- 구글폰트 -->
         <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
@@ -51,106 +53,6 @@
             }
 
         </script>
-
-        <style type="text/css">
-            * {
-                font-family: "Do Hyeon", sans-serif;
-            }
-            .header {
-                padding-left: 40px;
-            }
-            <!--선수선택창 css-->
-
-            .select_player {
-                margin: 10px auto;
-                width: 100%;
-                display: block;
-                text-align: center;
-            }
-            .search {
-                width: 30%;
-                margin: 0 auto;
-            }
-            .tc {
-                width: 50%;
-                margin: 0 auto;
-            }
-            .search_modal {
-                font-size: 20px;
-            }
-            #search_button {
-                height: 30px;
-                width: 50px;
-                text-align:center;
-                position:relative;
-                padding: 0;
-            }
-
-            <!-- body css --!>
-            .body {
-                float: left;
-            }
-            .away_list, .home_list {
-                float: left;
-                width: 20%;
-                text-align: center;
-            }
-            .away, .home {
-                text-align: center;
-                background-color: ivory;
-                width: 70%;
-                height: 500px;
-                margin: 0 auto;
-                border-radius: 15px;
-                box-shadow: inset 0 0 8px #deb13a;
-            }
-            .ground {
-                float: left;
-                width: 60%;
-            }
-            .score_board {
-                background-color: white;
-                width: 60%;
-                margin: 0 auto;
-                text-align: center;
-            }
-            .score_board_table {
-                width: 100%;
-                margin: 0px auto;
-            }
-            .live_board {
-                width: 100%;
-                margin: 0 auto;
-                text-align: center;
-            }
-            .inning {
-                float: left;
-                width: 7%;
-                background-color: white;
-                height: 30px;
-                text-align: center;
-                margin: 0 auto;
-                border-radius: 5px;
-                padding-top: 3px;
-                border: 1px solid #ffebb5;
-                box-shadow: inset 0 0 8px #deb13a;
-            }
-            .gap {
-                float: left;
-                width: 4.5%;
-            }
-            .record_board {
-                background-color: white;
-                width: 91%;
-                margin: 0 auto;
-                height: 350px;
-                border-radius: 15px;
-                padding-top: 10px;
-                border: 1px solid #ffebb5;
-                box-shadow: inset 0 0 8px #deb13a;
-            }
-
-        </style>
     </head>
 
     <body>
@@ -200,7 +102,7 @@
                         <td>Home/Away</td>
                         <td>Year</td>
                         <td>Team</td>
-                        <td>Hitter/Pitcher</td>
+                        <!--<td>Hitter/Pitcher</td>-->
                         <td>Position</td>
                         <td>Player</td>
                         <td rowspan="2"><button class="btn btn-success">추가</button></td>
@@ -208,9 +110,9 @@
                     <tr>
                         <td>
                             <select class="sl">
-                                <option value="" selected="" disabled="" hidden="">팀정하기</option>
-                                <option name="1">Away</option>
-                                <option name="2">Home</option>
+                                <option value="" selected="" disabled="" hidden="">홈/어웨이</option>
+                                <option name="1">Home</option>
+                                <option name="2">Away</option>
                             </select>
                         </td>
                         <td>
@@ -253,41 +155,36 @@
                                 <option class="year">2016</option>
                                 <option class="year">2017</option>
                                 <option class="year">2018</option>
+                                <option class="year">2019</option>
+                                <option class="year">2020</option>
                             </select>
                         </td>
                         <td>
                             <select class="sl" id="team">
                                 <option value="--" selected="selected">팀 선택</option>
-                                <!--<option>두산</option>-->
-                                <!--<option>SK</option>-->
-                                <!--<option>한화</option>-->
-                                <!--<option>넥센</option>-->
-                                <!--<option>KIA</option>-->
-                                <!--<option>삼성</option>-->
-                                <!--<option>롯데</option>-->
-                                <!--<option>LG</option>-->
 
                             </select>
                         </td>
-                        <td>
-                            <select class="sl" id="hp">
-                                <option value="--" selected="selected">타자 / 투수</option>
-                                <option>타자</option>
-                                <option>투수</option>
-                            </select>
-                        </td>
+                        <!--<td>-->
+                            <!--<select class="sl" id="hp">-->
+                                <!--<option value="&#45;&#45;" selected="selected">타자 / 투수</option>-->
+                                <!--<option>타자</option>-->
+                                <!--<option>투수</option>-->
+                            <!--</select>-->
+                        <!--</td>-->
                         <td>
                             <select class="sl" id="position">
                             <option value="--" selected="selected">포지션</option>
-                            <option>포수</option>
-                            <option>1루수</option>
-                            <option>2루수</option>
-                            <option>3루수</option>
-                            <option>유격수</option>
-                            <option>좌익수</option>
-                            <option>우익수</option>
-                            <option>중견수</option>
-                            <option>지명타자</option>
+                            <!--<option>포수</option>-->
+                            <!--<option>1루수</option>-->
+                            <!--<option>2루수</option>-->
+                            <!--<option>3루수</option>-->
+                            <!--<option>유격수</option>-->
+                            <!--<option>좌익수</option>-->
+                            <!--<option>우익수</option>-->
+                            <!--<option>중견수</option>-->
+                            <!--<option>지명타자</option>-->
+                            <!--<option>투수</option>-->
                         </select>
                         </td>
                         <td>
@@ -300,10 +197,10 @@
                 </div>
             </div><br><br>
             <div class="body">
-                <div class="away_list">
-                    <table class="away">
+                <div class="home_list">
+                    <table class="home">
                         <tr>
-                            <td colspan="3">Away</td>
+                            <td colspan="3">Home</td>
                         </tr>
                         <tr>
                             <td>1</td>
@@ -405,9 +302,9 @@
                                 <td>  </td>
                                 <td>  </td>
                                 <td>  </td>
-                                <td>  </td>
-                                <td>  </td>
-                                <td>  </td>
+                                <td> 0 </td>
+                                <td> 0 </td>
+                                <td> 0 </td>
                             </tr>
                             <tr class="score_board_tr">
                                 <td style="width:47px;"> Home </td>
@@ -424,9 +321,9 @@
                                 <td>  </td>
                                 <td>  </td>
                                 <td>  </td>
-                                <td>  </td>
-                                <td>  </td>
-                                <td>  </td>
+                                <td> 0 </td>
+                                <td> 0 </td>
+                                <td> 0 </td>
                             </tr>
                             </tbody>
                         </table>
@@ -451,10 +348,10 @@
                         <div class="record_board">경기 시작!</div>
                     </div>
                 </div>
-                <div class="home_list">
-                    <table class="home">
+                <div class="away_list">
+                    <table class="away">
                         <tr>
-                            <td colspan="3">Home</td>
+                            <td colspan="3">Away</td>
                         </tr>
                         <tr>
                             <td>1</td>
