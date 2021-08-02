@@ -23,6 +23,7 @@ def searchByYear():
 def searchByTeam():
     selectedYear = request.form['year']
     selectedTeam = request.form['team']
+    print(selectedYear, selectedTeam)
     hitter_data = db.kbo_batter_stat.find({'team': selectedTeam, 'year': int(selectedYear)})
     pitcher_data = db.kbo_pitcher_stat.find({'team': selectedTeam, 'year': int(selectedYear)})
     player = []

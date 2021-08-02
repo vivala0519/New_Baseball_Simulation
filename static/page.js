@@ -7,6 +7,7 @@ $(document).on('change', '#yearSelect', function () {
         type:'POST',
         data : {'year' : selectedYear},
         success: function(data) {
+            $('#yyyy').remove();
             $('#team').empty();
             $('#team').append('<option>팀 선택</option>')
             console.log(data)
@@ -32,7 +33,7 @@ $(document).on('change', '#team', function() {
         success: function(data) {
             $('#player').empty();
             $('#position').empty();
-            let position_set = '<option>포지션 선택</option><option>포수</option> <option>1루수</option> <option>2루수</option>';
+            let position_set = '<option>전체</option><option>포수</option> <option>1루수</option> <option>2루수</option>';
             position_set += '<option>3루수</option> <option>유격수</option> <option>좌익수</option>';
             position_set += '<option>우익수</option> <option>중견수</option> <option>지명타자</option> <option>투수</option>';
             $('#position').append(position_set);
@@ -69,4 +70,29 @@ $(document).on('change', '#position', function() {
                 });
         }
     })
+});
+// 포지션 전체 선택 시
+$(document).ready(function() {
+    $('#position').change(function() {
+        let selectedPosition = $('#position option:selected').val();
+        let selectedYear = $('#yearSelect').find('option:selected').text();
+        let selectedTeam = $('#team').find('option:selected').text();
+        if (selectedPosition == '전체'){
+            $.ajax({
+                url:'/searchByTeam',
+                type:'POST',
+                data : {'team' : selectedTeam, 'year': selectedYear},
+                success: function(data) {
+                    $('#player').empty();
+                    console.log(data)
+                    $.each(data, function(index, item){
+                           let output = '<option>';
+                           output += item;
+                           output += '</option>';
+                           $('#player').append(output);
+                        });
+                }
+            })
+        }
+    });
 });
