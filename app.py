@@ -31,6 +31,7 @@ def searchByTeam():
         player.append(item['name'])
     for item in pitcher_data:
         player.append(item['name'])
+    player.sort()
     print(player)
     return jsonify(player)
 
@@ -68,8 +69,25 @@ def searchByPosition():
         pitcher_data = db.kbo_pitcher_stat.find({'team': selectedTeam, 'year': int(selectedYear)})
         for item in pitcher_data:
             player.append(item['name'])
+    player.sort()
     print(player)
     return jsonify(player)
+
+@app.route('/addPlayer', methods=['POST'])
+def addPlayer():
+    selectedYear = request.form['year']
+    selectedTeam = request.form['team']
+    selectedPlayer = request.form['player']
+    print(selectedYear, selectedTeam, selectedPlayer)
+    hitter_data = db.kbo_batter_stat.find({'year': int(selectedYear), 'team': selectedTeam, 'name': selectedPlayer})
+    pitcher_data = db.kbo_pitcher_stat.find({'year': int(selectedYear), 'team': selectedTeam, 'name': selectedPlayer})
+    position = []
+    for item in hitter_data:
+        position.append(item['position'])
+    for item in pitcher_data:
+        position.append(item['position'])
+    print(position)
+    return jsonify(position)
 
 @app.route('/review', methods=['POST'])
 def write_review():
