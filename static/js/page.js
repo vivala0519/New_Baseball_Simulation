@@ -100,3 +100,6 @@ $(document).ready(function() {
         }
     });
 });
+
+
+// 선수 추가
