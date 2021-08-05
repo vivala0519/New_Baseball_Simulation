@@ -11,14 +11,14 @@ def home():
     return render_template('index.html')
 
 
-## API 역할을 하는 부분
+# 연도선택
 @app.route('/searchByYear', methods=['POST'])
 def searchByYear():
     selectedYear = request.form['year']
     data = db.kbo_batter_stat.distinct('team', {'year': int(selectedYear)})
     print(data)
     return jsonify(data)
-
+# 팀 선택
 @app.route('/searchByTeam', methods=['POST'])
 def searchByTeam():
     selectedYear = request.form['year']
@@ -34,7 +34,7 @@ def searchByTeam():
     player.sort()
     print(player)
     return jsonify(player)
-
+# 포지션 선택
 @app.route('/searchByPosition', methods=['POST'])
 def searchByPosition():
     selectedYear = request.form['year']
@@ -72,7 +72,7 @@ def searchByPosition():
     player.sort()
     print(player)
     return jsonify(player)
-
+# 선수 추가
 @app.route('/addPlayer', methods=['POST'])
 def addPlayer():
     selectedYear = request.form['year']
@@ -88,7 +88,7 @@ def addPlayer():
         position.append(item['position'])
     print(position)
     return jsonify(position)
-
+# 선수 검색
 @app.route('/searchByStr', methods=['POST'])
 def searchByStr():
     str = request.form['str']

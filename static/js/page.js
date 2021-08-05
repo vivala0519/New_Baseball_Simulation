@@ -105,8 +105,11 @@ $(document).ready(function() {
 
 // Home,Away section
 // 선수 추가(공통)
-function add_player_common(selectedPlayer, selectedPosition, selected_H_A){
-    console.log('add in')
+function add_player_common(selectedPlayer, selectedPosition, selected_H_A, selectedYear, selectedTeam){
+    let Year_and_Team = selectedYear + selectedTeam;
+    Year_and_Team = Year_and_Team.substring(2, 7);
+    console.log(Year_and_Team);
+    selectedPlayer = Year_and_Team + ' ' + selectedPlayer
     if(selectedPosition != 'P'){
         for(var i = 1; i<=9; i++){
             if(selected_H_A == 'Home') {
@@ -206,8 +209,7 @@ function add_click() {
             data : {'year': selectedYear, 'team' : selectedTeam, 'player': selectedPlayer},
             success: function(data) {
                 let selectedPosition = data[0]
-                add_player_common(selectedPlayer, selectedPosition, selected_H_A);
-
+                add_player_common(selectedPlayer, selectedPosition, selected_H_A, selectedYear, selectedTeam);
             }
         })
     }
@@ -220,12 +222,14 @@ function add_player_overlay(i){
     let selected_H_A = $('#sel_home_away_' + i).find('option:selected').text();
     let selectedPlayer = arr[2];
     let selectedPosition = arr[3];
+    let selectedYear = arr[0];
+    let selectedTeam = arr[1];
     if(selected_H_A == '홈/어웨이 선택'){
         alert('홈/어웨이 선택해');
     }
     else{
         console.log(selected_H_A, selectedPlayer, selectedPosition);
-        add_player_common(selectedPlayer, selectedPosition, selected_H_A);
+        add_player_common(selectedPlayer, selectedPosition, selected_H_A, selectedYear, selectedTeam);
         off()
     }
 }
@@ -271,6 +275,9 @@ $(document).on("click", "#search_button", function(){
         data : {'str' : str},
         success: function(data) {
             console.log(data)
+            if(data.length < 1) {
+                $('#overlay_in').append('<br><br><br><br><br><br><br><br><br><br><h1>검색 결과가 없습니당;</h1>');
+            }
             for (let i = 0; i < data.length; i++) {
                 let year = data[i]['year']
                 let team = data[i]['team']

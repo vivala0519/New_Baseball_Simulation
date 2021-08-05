@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
 * {
     font-family: "Do Hyeon", sans-serif;
 }
@@ -11,6 +13,7 @@
     margin-right: 10px;
     margin-top: 5px;
 }
+
 
 <!--선수선택창 css-->
 
@@ -230,7 +233,14 @@ button:hover:before,button:hover:after{
     border-radius: 7px;
     box-shadow: inset 0 0 8px #deb13a;
 }
-
+.play_ball {
+    background-color: transparent;
+    border: transparent;
+}
+.play_text {
+    font-family: 'Kaushan Script', cursive;
+    font-size: 40px;
+}
 #overlay {
     color: black;
     display: none;

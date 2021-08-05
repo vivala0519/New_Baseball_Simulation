@@ -200,37 +200,11 @@
                         <div id="overlay_in" style="overflow:auto; height: 600px;"></div>
                     </div>
                     <div class="search_modal"><p class="search_info">선수 검색</p>
-                    <input onkeyup="enterkey();" id="searchStr" type="text" name="q" class="searchStr" autofocus>
+                    <input onkeyup="enterkey();" id="searchStr" type="text" class="searchStr" autofocus>
                     <button id="search_button" class="my_button">
                         <img class='search_image' src="static/images/analysis_glass_icon.png"/>
                     </button>
                     </div>
-                     <!-- The Modal -->
-                    <div class="modal" id="myModal">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                          <h4 class="modal-title">선수정보</h4>
-                          <button type="button" class="close" data-dismiss="modal">×</button>
-                        </div>
-
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            <div id="output"></div>
-
-                        </div>
-
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
-                        </div>
-
-                        </div>
-                    </div>
-                    </div>
-
                 </div>
                 <div class="select_container">
                     <table class="tc">
@@ -415,7 +389,13 @@
                         <div class="inning"><button onclick="inning_button()" class="inning_button">12회</button></div>
                         <div class="inning"><button onclick="inning_button()" class="inning_button">기록</button></div>
                         <div class="gap">&nbsp;</div><br>
-                        <div class="record_board"><br>경기 시작!</div>
+                        <div class="record_board"><br>
+                            <div>
+                                <button class="play_ball"><div class="play_image"><img src="static/images/icon_1.webp" alt=""></div>
+                                    <div class="play_text">Play Ball !!</div>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
