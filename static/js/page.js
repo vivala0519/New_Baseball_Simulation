@@ -109,7 +109,7 @@ function add_player_common(selectedPlayer, selectedPosition, selected_H_A, selec
     let Year_and_Team = selectedYear + selectedTeam;
     Year_and_Team = Year_and_Team.substring(2, 7);
     console.log(Year_and_Team);
-    selectedPlayer = Year_and_Team + ' ' + selectedPlayer
+    selectedPlayer = Year_and_Team + '  ' + selectedPlayer
     if(selectedPosition != 'P'){
         for(var i = 1; i<=9; i++){
             if(selected_H_A == 'Home') {
