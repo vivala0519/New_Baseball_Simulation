@@ -213,6 +213,7 @@ button:hover:before,button:hover:after{
 }
 .clicked {
     background-color: #F5DA81;
+    color: black;
 }
 .gap {
     float: left;

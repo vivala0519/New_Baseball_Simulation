@@ -104,9 +104,85 @@ $(document).ready(function() {
 });
 
 // Home,Away section
-// 선수 추가
+// 선수 추가(공통)
+function add_player_common(selectedPlayer, selectedPosition, selected_H_A){
+    console.log('add in')
+    if(selectedPosition != 'P'){
+        for(var i = 1; i<=9; i++){
+            if(selected_H_A == 'Home') {
+                p = $('#home_table tr:eq('+i+')>td:eq(1)').html();
+                if(p == 'player'){
+                    $('#home_table tr:eq('+i+')>td:eq(1)').empty();
+                    $('#home_table tr:eq('+i+')>td:eq(2)').empty();
+                    $('#home_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
+                    $('#home_table tr:eq('+i+')>td:eq(2)').append(selectedPosition);
+                    $('#home_table tr:eq('+i+')>td:eq(0)').css({
+                        'color': 'black'
+                    })
+                    $('#home_table tr:eq('+i+')>td:eq(1)').css({
+                        'color': 'black'
+                    })
+                    break
+                }
+            }
+            else {
+                p = $('#away_table tr:eq('+i+')>td:eq(1)').html();
+                if(p == 'player'){
+                    $('#away_table tr:eq('+i+')>td:eq(1)').empty();
+                    $('#away_table tr:eq('+i+')>td:eq(2)').empty();
+                    $('#away_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
+                    $('#away_table tr:eq('+i+')>td:eq(2)').append(selectedPosition);
+                    $('#away_table tr:eq('+i+')>td:eq(0)').css({
+                        'color': 'black'
+                    })
+                    $('#away_table tr:eq('+i+')>td:eq(1)').css({
+                        'color': 'black'
+                    })
+                    break
+                }
+            }
+        }
+    }
+    else{
+        for(var i = 10; i<=12; i++){
+            if(selected_H_A == 'Home') {
+                p = $('#home_table tr:eq('+i+')>td:eq(1)').html();
+                if(p == 'player'){
+                    $('#home_table tr:eq('+i+')>td:eq(1)').empty();
+                    $('#home_table tr:eq('+i+')>td:eq(2)').empty();
+                    $('#home_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
+                    $('#home_table tr:eq('+i+')>td:eq(2)').append(selectedPosition);
+                    $('#home_table tr:eq('+i+')>td:eq(0)').css({
+                        'color': 'black'
+                    })
+                    $('#home_table tr:eq('+i+')>td:eq(1)').css({
+                        'color': 'black'
+                    })
+                    break
+                }
+            }
+            else {
+                p = $('#away_table tr:eq('+i+')>td:eq(1)').html();
+                if(p == 'player'){
+                    $('#away_table tr:eq('+i+')>td:eq(1)').empty();
+                    $('#away_table tr:eq('+i+')>td:eq(2)').empty();
+                    $('#away_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
+                    $('#away_table tr:eq('+i+')>td:eq(2)').append(selectedPosition);
+                    $('#home_table tr:eq('+i+')>td:eq(0)').css({
+                        'color': 'black'
+                    })
+                    $('#home_table tr:eq('+i+')>td:eq(1)').css({
+                        'color': 'black'
+                    })
+                    break
+                }
+            }
+        }
+    }
+}
+// 셀렉해서 선수 추가
 function add_click() {
-    if($('#sel_home_away option:selected').val() == '홈/어웨이'){
+    if($('#sel_home_away option:selected').val() == '홈/어웨이 선택'){
         alert('홈, 어웨이 선택해')
     }
     else if($('#yearSelect option:selected').val() == '--'){
@@ -129,84 +205,30 @@ function add_click() {
             type:'POST',
             data : {'year': selectedYear, 'team' : selectedTeam, 'player': selectedPlayer},
             success: function(data) {
-                if(data[0] != 'P'){
-                    for(var i = 1; i<=9; i++){
-                        if(selected_H_A == 'Home') {
-                            p = $('#home_table tr:eq('+i+')>td:eq(1)').html();
-                            if(p == 'player'){
-                                $('#home_table tr:eq('+i+')>td:eq(1)').empty();
-                                $('#home_table tr:eq('+i+')>td:eq(2)').empty();
-                                $('#home_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
-                                $('#home_table tr:eq('+i+')>td:eq(2)').append(data[0]);
-                                $('#home_table tr:eq('+i+')>td:eq(0)').css({
-                                    'color': 'black'
-                                })
-                                $('#home_table tr:eq('+i+')>td:eq(1)').css({
-                                    'color': 'black'
-                                })
-                                break
-                            }
-                        }
-                        else {
-                            p = $('#away_table tr:eq('+i+')>td:eq(1)').html();
-                            if(p == 'player'){
-                                $('#away_table tr:eq('+i+')>td:eq(1)').empty();
-                                $('#away_table tr:eq('+i+')>td:eq(2)').empty();
-                                $('#away_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
-                                $('#away_table tr:eq('+i+')>td:eq(2)').append(data[0]);
-                                $('#away_table tr:eq('+i+')>td:eq(0)').css({
-                                    'color': 'black'
-                                })
-                                $('#away_table tr:eq('+i+')>td:eq(1)').css({
-                                    'color': 'black'
-                                })
-                                break
-                            }
-                        }
-                    }
-                }
-                else{
-                    for(var i = 10; i<=12; i++){
-                        if(selected_H_A == 'Home') {
-                            p = $('#home_table tr:eq('+i+')>td:eq(1)').html();
-                            if(p == 'player'){
-                                $('#home_table tr:eq('+i+')>td:eq(1)').empty();
-                                $('#home_table tr:eq('+i+')>td:eq(2)').empty();
-                                $('#home_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
-                                $('#home_table tr:eq('+i+')>td:eq(2)').append(data[0]);
-                                $('#home_table tr:eq('+i+')>td:eq(0)').css({
-                                    'color': 'black'
-                                })
-                                $('#home_table tr:eq('+i+')>td:eq(1)').css({
-                                    'color': 'black'
-                                })
-                                break
-                            }
-                        }
-                        else {
-                            p = $('#away_table tr:eq('+i+')>td:eq(1)').html();
-                            if(p == 'player'){
-                                $('#away_table tr:eq('+i+')>td:eq(1)').empty();
-                                $('#away_table tr:eq('+i+')>td:eq(2)').empty();
-                                $('#away_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
-                                $('#away_table tr:eq('+i+')>td:eq(2)').append(data[0]);
-                                $('#home_table tr:eq('+i+')>td:eq(0)').css({
-                                    'color': 'black'
-                                })
-                                $('#home_table tr:eq('+i+')>td:eq(1)').css({
-                                    'color': 'black'
-                                })
-                                break
-                            }
-                        }
-                    }
-                }
+                let selectedPosition = data[0]
+                add_player_common(selectedPlayer, selectedPosition, selected_H_A);
 
             }
         })
     }
 }
-
+// 오버레이창 선수 추가
+function add_player_overlay(i){
+    console.log(i);
+    var kin = $('#added_player_' + i).text();
+    var arr = kin.split('  ');
+    let selected_H_A = $('#sel_home_away_' + i).find('option:selected').text();
+    let selectedPlayer = arr[2];
+    let selectedPosition = arr[3];
+    if(selected_H_A == '홈/어웨이 선택'){
+        alert('홈/어웨이 선택해');
+    }
+    else{
+        console.log(selected_H_A, selectedPlayer, selectedPosition);
+        add_player_common(selectedPlayer, selectedPosition, selected_H_A);
+        off()
+    }
+}
 // 선수 선택 취소
 function cancel_click(clicked_value){
     console.log(clicked_value)
@@ -257,24 +279,18 @@ $(document).on("click", "#search_button", function(){
                 console.log(year, team, name, position)
                 let output = '<div id="added_player_'+ i +'" style="display:inline;">';
                 output += year;
-                output += '&nbsp;' + team;
-                output += '&nbsp;' + name;
-                output += '&nbsp;' + position + '&nbsp;' + '&nbsp;';
-                output += '</div><select id="sel_home_away"><option value="홈/어웨이" selected="" disabled="" hidden="">홈/어웨이</option>';
+                output += '  ' + team;
+                output += '  ' + name;
+                output += '  ' + position + '  ';
+                output += '</div><select id="sel_home_away_'+ i +'"><option value="홈/어웨이" selected="" disabled="" hidden="">홈/어웨이 선택</option>';
                 output += '<option name="1">Home</option><option name="2">Away</option></select>&nbsp;';
-                output += '<button onclick="add_player(' + i + ')" class="overlay_add_button" style="display:inline">추가</button><br><br>';
+                output += '<button onclick="add_player_overlay(' + i + ')" class="overlay_add_button" style="display:inline">추가</button><br><br>';
                 $('#overlay_in').append(output);
             }
         }
     });
     document.getElementById("overlay").style.display = "block";
 })
-// 오버레이창 선수 추가
-function add_player(i){
-    console.log(i)
-
-    off()
-}
 // 오버레이 닫기
 function off() {
     console.log('close')
@@ -297,6 +313,8 @@ window.onkeyup = function(e) {
 	}
 }
 
+
+//Live_Board Section
 // 이닝 버튼 눌렀을 때
 let inning_on_off = document.getElementsByClassName('inning_button');
 function handleClick(event){
