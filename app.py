@@ -92,15 +92,16 @@ def addPlayer():
 @app.route('/searchByStr', methods=['POST'])
 def searchByStr():
     str = request.form['str']
-    print(sample_receive)
-    return jsonify({'msg': '이 요청은 POST!'})
-
-
-@app.route('/review', methods=['GET'])
-def read_reviews():
-    sample_receive = request.args.get('sample_give')
-    print(sample_receive)
-    return jsonify({'msg': ''})
+    print(str)
+    hitter_data = list(db.kbo_batter_stat.find({'name': str}, {'_id': False}))
+    pitcher_data = list(db.kbo_pitcher_stat.find({'name': str}, {'_id': False}))
+    player = []
+    for item in hitter_data:
+        player.append(item)
+    for item in pitcher_data:
+        player.append(item)
+    print(player)
+    return jsonify(player)
 
 
 

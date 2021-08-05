@@ -24,44 +24,15 @@
         <!-- 구글폰트 -->
         <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                showReview();
-            });
-
-            function makeReview() {
-                $.ajax({
-                    type: "POST",
-                    url: "/review",
-                    data: {sample_give:'샘플데이터'},
-                    success: function (response) {
-                        alert(response["msg"]);
-                        window.location.reload();
-                    }
-                })
-            }
-
-            function showReview() {
-                $.ajax({
-                    type: "GET",
-                    url: "/review?sample_give=샘플데이터",
-                    data: {},
-                    success: function (response) {
-                        alert(response["msg"]);
-                    }
-                })
-            }
-        </script>
     </head>
 
     <body>
         <div class="container">
             <div class="header">
                 <img class='header_image' src="static/images/icon_1.webp"/>
-                <h1>Baseball Simulation PlayGround</h1>
+                <h1>Baseball Simulation PlayGround <p style="float: right; font-size: 30px; color: #2F4F4F; font-style: oblique; position:relative; top: 10px; right: 568px;">(Beta)</p></h1>
                 <p>by Dzeko</p>
             </div>
-
             <br>
             <div class="home_list">
                     <table id="home_table" class="home">
@@ -224,16 +195,16 @@
             <div class="select_and_body">
             <div class="select_player">
                 <div class="search">
-                    <div id="overlay" onclick="off()">
-                        <div id="overlay_in">overlay text</div>
+                    <div id="overlay">
+                        <div><button onclick="off()" class="search_overlay_button">닫기</button><br><br></div>
+                        <div id="overlay_in" style="overflow:auto; height: 600px;"></div>
                     </div>
-                    <div class="search_modal"><p class="search_info">팀 OR 선수 검색</p>
-                    <input id="searchStr" type="text" name="q" class="searchStr">
-                    <button onclick="on()" id="search_button" class="my_button"type="submit" data-toggle="modal" data-target="#myModal">
+                    <div class="search_modal"><p class="search_info">선수 검색</p>
+                    <input onkeyup="enterkey();" id="searchStr" type="text" name="q" class="searchStr" autofocus>
+                    <button id="search_button" class="my_button">
                         <img class='search_image' src="static/images/analysis_glass_icon.png"/>
                     </button>
-                    <!--<button id="icon" type="submit" ><span class="glyphicon glyphicon-search"></span></button>-->
-                     </div>
+                    </div>
                      <!-- The Modal -->
                     <div class="modal" id="myModal">
                     <div class="modal-dialog">
@@ -430,19 +401,19 @@
                     <br>
                     <div class="live_board">
                         <div class="gap">&nbsp;</div>
-                        <div class="inning"><button class="inning_button">1회</button></div>
-                        <div class="inning"><button class="inning_button">2회</button></div>
-                        <div class="inning"><button class="inning_button">3회</button></div>
-                        <div class="inning"><button class="inning_button">4회</button></div>
-                        <div class="inning"><button class="inning_button">5회</button></div>
-                        <div class="inning"><button class="inning_button">6회</button></div>
-                        <div class="inning"><button class="inning_button">7회</button></div>
-                        <div class="inning"><button class="inning_button">8회</button></div>
-                        <div class="inning"><button class="inning_button">9회</button></div>
-                        <div class="inning"><button class="inning_button">10회</button></div>
-                        <div class="inning"><button class="inning_button">11회</button></div>
-                        <div class="inning"><button class="inning_button">12회</button></div>
-                        <div class="inning"><button class="inning_button">기록</button></div>
+                        <div class="inning"><button onclick="inning_button()" class="inning_button">1회</button></div>
+                        <div class="inning"><button onclick="inning_button()" class="inning_button">2회</button></div>
+                        <div class="inning"><button onclick="inning_button()" class="inning_button">3회</button></div>
+                        <div class="inning"><button onclick="inning_button()" class="inning_button">4회</button></div>
+                        <div class="inning"><button onclick="inning_button()" class="inning_button">5회</button></div>
+                        <div class="inning"><button onclick="inning_button()" class="inning_button">6회</button></div>
+                        <div class="inning"><button onclick="inning_button()" class="inning_button">7회</button></div>
+                        <div class="inning"><button onclick="inning_button()" class="inning_button">8회</button></div>
+                        <div class="inning"><button onclick="inning_button()" class="inning_button">9회</button></div>
+                        <div class="inning"><button onclick="inning_button()" class="inning_button">10회</button></div>
+                        <div class="inning"><button onclick="inning_button()" class="inning_button">11회</button></div>
+                        <div class="inning"><button onclick="inning_button()" class="inning_button">12회</button></div>
+                        <div class="inning"><button onclick="inning_button()" class="inning_button">기록</button></div>
                         <div class="gap">&nbsp;</div><br>
                         <div class="record_board"><br>경기 시작!</div>
                     </div>

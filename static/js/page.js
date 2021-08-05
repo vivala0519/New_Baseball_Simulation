@@ -239,32 +239,78 @@ function cancel_click(clicked_value){
 }
 
 // 선수 검색 오버레이
-function on() {
+$(document).on("click", "#search_button", function(){
     str = $('#searchStr').val()
+    str = str.trim()
     console.log(str)
     $.ajax({
         url:'/searchByStr',
         type:'POST',
         data : {'str' : str},
         success: function(data) {
-            $('#yyyy').remove();
-            $('#team').empty();
-            $('#position').empty();
-            $('#player').empty();
-            $('#team').append('<option>팀 선택</option>')
-            $('#position').append('<option>포지션 선택</option>')
-            $('#player').append('<option>선수 선택</option>')
             console.log(data)
-            $.each(data, function(index, item){
-                let output = '<option>';
-                output += item;
-                output += '</option>';
-                $('#team').append(output);
-            });
+            for (let i = 0; i < data.length; i++) {
+                let year = data[i]['year']
+                let team = data[i]['team']
+                let name = data[i]['name']
+                let position = data[i]['position']
+                console.log(year, team, name, position)
+                let output = '<div id="added_player_'+ i +'" style="display:inline;">';
+                output += year;
+                output += '&nbsp;' + team;
+                output += '&nbsp;' + name;
+                output += '&nbsp;' + position + '&nbsp;' + '&nbsp;';
+                output += '</div><select id="sel_home_away"><option value="홈/어웨이" selected="" disabled="" hidden="">홈/어웨이</option>';
+                output += '<option name="1">Home</option><option name="2">Away</option></select>&nbsp;';
+                output += '<button onclick="add_player(' + i + ')" class="overlay_add_button" style="display:inline">추가</button><br><br>';
+                $('#overlay_in').append(output);
+            }
         }
-    })
+    });
     document.getElementById("overlay").style.display = "block";
+})
+// 오버레이창 선수 추가
+function add_player(i){
+    console.log(i)
+
+    off()
 }
+// 오버레이 닫기
 function off() {
+    console.log('close')
     document.getElementById("overlay").style.display = "none";
+    $('#overlay_in').empty();
+    $('#searchStr').focus();
+    }
+// 선수검색 키워드 엔터 눌렀을때
+function enterkey() {
+    if(window.event.keyCode == 13){
+        console.log('enter')
+        $('#search_button').click()
+    }
+}
+// 오버레이 창에서 esc 눌렀을때
+window.onkeyup = function(e) {
+	var key = e.keyCode ? e.keyCode : e.which;
+	if(key == 27) {
+		$(".search_overlay_button").click();
+	}
+}
+
+// 이닝 버튼 눌렀을 때
+let inning_on_off = document.getElementsByClassName('inning_button');
+function handleClick(event){
+    if(event.target.classList[1] === 'clicked'){
+        event.target.classList.remove('clicked');
+    } else{
+        for(var i = 0; i < inning_on_off.length; i++){
+            inning_on_off[i].classList.remove('clicked');
+        }
+        event.target.classList.add('clicked');
+    }
+}
+function inning_button() {
+    for (var i = 0; i < inning_on_off.length; i++){
+        inning_on_off[i].addEventListener('click', handleClick);
+    }
 }
