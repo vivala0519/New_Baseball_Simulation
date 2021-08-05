@@ -89,9 +89,9 @@ def addPlayer():
     print(position)
     return jsonify(position)
 
-@app.route('/review', methods=['POST'])
-def write_review():
-    sample_receive = request.form['sample_give']
+@app.route('/searchByStr', methods=['POST'])
+def searchByStr():
+    str = request.form['str']
     print(sample_receive)
     return jsonify({'msg': '이 요청은 POST!'})
 

@@ -138,6 +138,12 @@ function add_click() {
                                 $('#home_table tr:eq('+i+')>td:eq(2)').empty();
                                 $('#home_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
                                 $('#home_table tr:eq('+i+')>td:eq(2)').append(data[0]);
+                                $('#home_table tr:eq('+i+')>td:eq(0)').css({
+                                    'color': 'black'
+                                })
+                                $('#home_table tr:eq('+i+')>td:eq(1)').css({
+                                    'color': 'black'
+                                })
                                 break
                             }
                         }
@@ -148,6 +154,12 @@ function add_click() {
                                 $('#away_table tr:eq('+i+')>td:eq(2)').empty();
                                 $('#away_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
                                 $('#away_table tr:eq('+i+')>td:eq(2)').append(data[0]);
+                                $('#away_table tr:eq('+i+')>td:eq(0)').css({
+                                    'color': 'black'
+                                })
+                                $('#away_table tr:eq('+i+')>td:eq(1)').css({
+                                    'color': 'black'
+                                })
                                 break
                             }
                         }
@@ -162,6 +174,12 @@ function add_click() {
                                 $('#home_table tr:eq('+i+')>td:eq(2)').empty();
                                 $('#home_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
                                 $('#home_table tr:eq('+i+')>td:eq(2)').append(data[0]);
+                                $('#home_table tr:eq('+i+')>td:eq(0)').css({
+                                    'color': 'black'
+                                })
+                                $('#home_table tr:eq('+i+')>td:eq(1)').css({
+                                    'color': 'black'
+                                })
                                 break
                             }
                         }
@@ -172,6 +190,12 @@ function add_click() {
                                 $('#away_table tr:eq('+i+')>td:eq(2)').empty();
                                 $('#away_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
                                 $('#away_table tr:eq('+i+')>td:eq(2)').append(data[0]);
+                                $('#home_table tr:eq('+i+')>td:eq(0)').css({
+                                    'color': 'black'
+                                })
+                                $('#home_table tr:eq('+i+')>td:eq(1)').css({
+                                    'color': 'black'
+                                })
                                 break
                             }
                         }
@@ -190,12 +214,57 @@ function cancel_click(clicked_value){
     arr.push(clicked_value.split('_'))
     if(arr[0][0] == 'home'){
         $('#home_table tr:eq('+arr[0][1]+')>td:eq(1)').empty();
+        $('#home_table tr:eq('+arr[0][1]+')>td:eq(2)').empty();
         $('#home_table tr:eq('+arr[0][1]+')>td:eq(1)').append('player');
+        $('#home_table tr:eq('+arr[0][1]+')>td:eq(0)').css({
+            'color': '#aaa'
+        })
+        $('#home_table tr:eq('+arr[0][1]+')>td:eq(1)').css({
+            'color': '#aaa'
+        })
         console.log('complete')
     }
     else{
         $('#away_table tr:eq('+arr[0][1]+')>td:eq(1)').empty();
+        $('#away_table tr:eq('+arr[0][1]+')>td:eq(2)').empty();
         $('#away_table tr:eq('+arr[0][1]+')>td:eq(1)').append('player');
+        $('#away_table tr:eq('+arr[0][1]+')>td:eq(0)').css({
+            'color': '#aaa'
+        })
+        $('#away_table tr:eq('+arr[0][1]+')>td:eq(1)').css({
+            'color': '#aaa'
+        })
         console.log('complete')
     }
+}
+
+// 선수 검색 오버레이
+function on() {
+    str = $('#searchStr').val()
+    console.log(str)
+    $.ajax({
+        url:'/searchByStr',
+        type:'POST',
+        data : {'str' : str},
+        success: function(data) {
+            $('#yyyy').remove();
+            $('#team').empty();
+            $('#position').empty();
+            $('#player').empty();
+            $('#team').append('<option>팀 선택</option>')
+            $('#position').append('<option>포지션 선택</option>')
+            $('#player').append('<option>선수 선택</option>')
+            console.log(data)
+            $.each(data, function(index, item){
+                let output = '<option>';
+                output += item;
+                output += '</option>';
+                $('#team').append(output);
+            });
+        }
+    })
+    document.getElementById("overlay").style.display = "block";
+}
+function off() {
+    document.getElementById("overlay").style.display = "none";
 }
