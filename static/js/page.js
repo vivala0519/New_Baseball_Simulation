@@ -109,10 +109,27 @@ function add_player_common(selectedPlayer, selectedPosition, selected_H_A, selec
     let Year_and_Team = selectedYear + selectedTeam;
     Year_and_Team = Year_and_Team.substring(2, 7);
     console.log(Year_and_Team);
+    console.log(selected_H_A);
     selectedPlayer = Year_and_Team + '  ' + selectedPlayer
     if(selectedPosition != 'P'){
         for(var i = 1; i<=9; i++){
+            console.log('i는 ', i)
             if(selected_H_A == 'Home') {
+                // 포지션 중복 시
+                for(var j = 2; j < 11; j++){
+                    if($('#home_table > tbody > tr:nth-child('+ j +') > td:nth-child(3)').text() == selectedPosition){
+                        selectedPosition = 'DH';
+                    }
+                    if($('#home_table > tbody > tr:nth-child('+ j +') > td:nth-child(3)').text() == 'DH'){
+                        swal({
+                            title: '포지션 중복!',
+                            text: '더 이상 같은 포지션의 선수를 추가할 수 없습니다.',
+                            icon: 'error',
+                            button: 'Ok 확인~'
+                        })
+                        return false;
+                    }
+                }
                 p = $('#home_table tr:eq('+i+')>td:eq(1)').html();
                 if(p == 'player'){
                     $('#home_table tr:eq('+i+')>td:eq(1)').empty();
@@ -129,7 +146,23 @@ function add_player_common(selectedPlayer, selectedPosition, selected_H_A, selec
                 }
             }
             else {
+                // 포지션 중복 시
+                for(var j = 2; j < 11; j++){
+                    if($('#away_table > tbody > tr:nth-child('+ j +') > td:nth-child(3)').text() == selectedPosition){
+                        selectedPosition = 'DH';
+                    }
+                    if($('#away_table > tbody > tr:nth-child('+ j +') > td:nth-child(3)').text() == 'DH'){
+                        swal({
+                            title: '포지션 중복!',
+                            text: '더 이상 같은 포지션의 선수를 추가할 수 없습니다.',
+                            icon: 'error',
+                            button: 'Ok 확인~'
+                        })
+                        return false;
+                    }
+                }
                 p = $('#away_table tr:eq('+i+')>td:eq(1)').html();
+                console.log(p)
                 if(p == 'player'){
                     $('#away_table tr:eq('+i+')>td:eq(1)').empty();
                     $('#away_table tr:eq('+i+')>td:eq(2)').empty();
@@ -171,10 +204,10 @@ function add_player_common(selectedPlayer, selectedPosition, selected_H_A, selec
                     $('#away_table tr:eq('+i+')>td:eq(2)').empty();
                     $('#away_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
                     $('#away_table tr:eq('+i+')>td:eq(2)').append(selectedPosition);
-                    $('#home_table tr:eq('+i+')>td:eq(0)').css({
+                    $('#away_table tr:eq('+i+')>td:eq(0)').css({
                         'color': 'black'
                     })
-                    $('#home_table tr:eq('+i+')>td:eq(1)').css({
+                    $('#away_table tr:eq('+i+')>td:eq(1)').css({
                         'color': 'black'
                     })
                     break

@@ -23,7 +23,8 @@
 
         <!-- 구글폰트 -->
         <link href="https://fonts.googleapis.com/css?family=Do+Hyeon&display=swap" rel="stylesheet">
-
+        <!-- sweetalert -->
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
 
     <body>
@@ -218,14 +219,14 @@
                     </tr>
                     <tr>
                         <td>
-                            <select id="sel_home_away">
+                            <select id="sel_home_away" style="text-align-last: center;">
                                 <option value="홈/어웨이 선택" selected="" disabled="" hidden="">홈/어웨이 선택</option>
                                 <option name="1">Home</option>
                                 <option name="2">Away</option>
                             </select>
                         </td>
                         <td>
-                            <select class="sl" id="yearSelect">
+                            <select class="sl" id="yearSelect" style="text-align-last: center;">
                                 <option value="--" selected="selected" id="yyyy">연도 선택</option>
                                 <option class="year">1982</option>
                                 <option class="year">1983</option>
@@ -269,34 +270,17 @@
                             </select>
                         </td>
                         <td>
-                            <select class="sl" id="team">
+                            <select class="sl" id="team" style="text-align-last: center;">
                                 <option value="팀 선택" selected="selected">팀 선택</option>
                             </select>
                         </td>
-                        <!--<td>-->
-                            <!--<select class="sl" id="hp">-->
-                                <!--<option value="&#45;&#45;" selected="selected">타자 / 투수</option>-->
-                                <!--<option>타자</option>-->
-                                <!--<option>투수</option>-->
-                            <!--</select>-->
-                        <!--</td>-->
                         <td>
-                            <select class="sl" id="position">
+                            <select class="sl" id="position" style="text-align-last: center;">
                             <option value="포지션 선택" selected="selected">포지션 선택</option>
-                            <!--<option>포수</option>-->
-                            <!--<option>1루수</option>-->
-                            <!--<option>2루수</option>-->
-                            <!--<option>3루수</option>-->
-                            <!--<option>유격수</option>-->
-                            <!--<option>좌익수</option>-->
-                            <!--<option>우익수</option>-->
-                            <!--<option>중견수</option>-->
-                            <!--<option>지명타자</option>-->
-                            <!--<option>투수</option>-->
                         </select>
                         </td>
                         <td>
-                            <select class="sl" id="player">
+                            <select class="sl" id="player" style="text-align-last: center;">
                                 <option value="선수 선택" selected="selected">선수명</option>
                             </select>
                         </td>
