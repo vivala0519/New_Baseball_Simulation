@@ -113,14 +113,14 @@ function add_player_common(selectedPlayer, selectedPosition, selected_H_A, selec
     selectedPlayer = Year_and_Team + '  ' + selectedPlayer
     if(selectedPosition != 'P'){
         for(var i = 1; i<=9; i++){
-            console.log('i는 ', i)
+            console.log('position', selectedPosition)
             if(selected_H_A == 'Home') {
                 // 포지션 중복 시
                 for(var j = 2; j < 11; j++){
                     if($('#home_table > tbody > tr:nth-child('+ j +') > td:nth-child(3)').text() == selectedPosition){
                         selectedPosition = 'DH';
                     }
-                    if($('#home_table > tbody > tr:nth-child('+ j +') > td:nth-child(3)').text() == 'DH'){
+                    if($('#home_table > tbody > tr:nth-child('+ j +') > td:nth-child(3)').text() == 'DH' & $('#home_table > tbody > tr:nth-child('+ j +') > td:nth-child(3)').text() == selectedPosition){
                         swal({
                             title: '포지션 중복!',
                             text: '더 이상 같은 포지션의 선수를 추가할 수 없습니다.',
@@ -151,7 +151,7 @@ function add_player_common(selectedPlayer, selectedPosition, selected_H_A, selec
                     if($('#away_table > tbody > tr:nth-child('+ j +') > td:nth-child(3)').text() == selectedPosition){
                         selectedPosition = 'DH';
                     }
-                    if($('#away_table > tbody > tr:nth-child('+ j +') > td:nth-child(3)').text() == 'DH'){
+                    if($('#away_table > tbody > tr:nth-child('+ j +') > td:nth-child(3)').text() == 'DH' & $('#away_table > tbody > tr:nth-child('+ j +') > td:nth-child(3)').text() == selectedPosition){
                         swal({
                             title: '포지션 중복!',
                             text: '더 이상 같은 포지션의 선수를 추가할 수 없습니다.',
