@@ -58,8 +58,24 @@ class Versus():
     total_league_obp_oz = total_league_obp / (1 - total_league_obp)
 
 
-    def versus(self, batter_obp, pitcher_obp, batter_league_obp, pitcher_league_obp, total_league_obp_oz):
-        # 투수 피출루율 # 타자 출루율 # 투수 리그 출루율 # 타자 리그 출루율
+    def versus(self, obp_dic, total_league_obp_oz):
+        hitter_data = db.kbo_batter_stat.find({'year': 2018, 'team': 'SK', 'name': '로맥'})
+        pitcher_data = db.kbo_pitcher_stat.find({'year': 2018, 'team': 'SK', 'name': '김광현'})
+        hitter = []
+        pitcher = []
+        for item in hitter_data:
+            hitter.append(item['year'])
+            hitter.append(float(item['obp']))
+        for item in pitcher_data:
+            pitcher.append(item['year'])
+            pitcher.append(float(item['obp']))
+        hitter_year = hitter[0] - 2000
+        pitcher_year = pitcher[0] - 2000
+        batter_obp = hitter[1]
+        pitcher_obp = pitcher[1]
+        batter_league_obp = obp_dic[str(hitter_year)]
+        pitcher_league_obp = obp_dic[str(pitcher_year)]
+
         batter_oz = batter_obp / (1 - batter_obp)
         pitcher_oz = (1 - pitcher_obp) / pitcher_obp
         pitcher_league_obp_oz = (1 - pitcher_league_obp) / pitcher_league_obp
@@ -72,7 +88,7 @@ class Versus():
         hit_rate = [vs_obp, 1 - vs_obp]
 
         result = choices(hit_or_out, hit_rate)
-        print(result)
+        # print(result)
 
         if result[0] == '출루':
             return False
@@ -102,7 +118,7 @@ class Versus():
         run_rate = [hit_one / hit, hit_two / hit, hit_three / hit, home_run / hit, BB / hit]
 
         hit_def = choices(hit_kind, run_rate)
-        print(hit_def)
+        # print(hit_def)
         return hit_def
 
     def out_result(self):
@@ -110,14 +126,15 @@ class Versus():
         out_rate = [0.33333334, 0.33333333, 0.3333333]
 
         out_def = choices(out_kind, out_rate)
-        print(out_def)
+        # print(out_def)
         return out_def
 
     def pitch_count(self):      # 투구 수 결과 (투구 수 1 ~ 10개 중 출력)
-        pitch_count_kind = [1, 2, 4, 5, 6, 7, 8, 9, 10]
+        pitch_count_kind = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
         count_rate = [0.12, 0.12, 0.12, 0.12, 0.12, 0.12, 0.07, 0.07, 0.07, 0.07]
         pitch_count_def = choices(pitch_count_kind, count_rate)
         pitch_count = int(pitch_count_def[0])
+        # print('투구 수 : ', pitch_count)
 
         return pitch_count
 
@@ -127,6 +144,7 @@ class Versus():
         hit_count_rate = [0.16, 0.14, 0.14, 0.14, 0.14, 0.14, 0.14]
         pitch_count_def = choices(pitch_count_kind, hit_count_rate)
         pitch_count = int(pitch_count_def[0])
+        # print('투구 수 : ', pitch_count)
 
         return pitch_count
 
@@ -136,5 +154,6 @@ class Versus():
         hit_count_rate = [0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125, 0.125]
         pitch_count_def = choices(pitch_count_kind, hit_count_rate)
         pitch_count = int(pitch_count_def[0])
+        # print('투구 수 : ', pitch_count)
 
         return pitch_count
