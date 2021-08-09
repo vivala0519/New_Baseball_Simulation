@@ -83,7 +83,7 @@ class Versus():
         vs = ((batter_oz / batter_league_obp_oz) / (pitcher_oz / pitcher_league_obp_oz)) * total_league_obp_oz
         vs_obp = round(vs / (1 + vs), 3)
 
-        print('타자 vs 투수 출루율 : ', vs_obp)
+        # print('타자 vs 투수 출루율 : ', vs_obp)
         hit_or_out = ['출루', '아웃']
         hit_rate = [vs_obp, 1 - vs_obp]
 
@@ -122,7 +122,7 @@ class Versus():
         return hit_def
 
     def out_result(self):
-        out_kind = ['삼진', '땅볼아웃', '뜬공아웃']
+        out_kind = ['삼진아웃', '땅볼아웃', '뜬공아웃']
         out_rate = [0.33333334, 0.33333333, 0.3333333]
 
         out_def = choices(out_kind, out_rate)
@@ -157,3 +157,19 @@ class Versus():
         # print('투구 수 : ', pitch_count)
 
         return pitch_count
+
+    def h_vs_p(self):   # 타 vs 투
+        if Versus.versus(0, Versus.obp_dic, Versus.total_league_obp_oz) == True:
+            result = Versus.out_result(0)[0]
+            if result == '삼진':
+                ball_count = Versus.pitch_count_case_K(0)
+            else:
+                ball_count = Versus.pitch_count(0)
+        else:
+            result = Versus.hit_result(0)[0]
+            if result == '볼넷':
+                ball_count = Versus.pitch_count_case_BB(0)
+            else:
+                ball_count = Versus.pitch_count(0)
+        # print(result, ', 투구 수 : ', ball_count)
+        return result, ball_count

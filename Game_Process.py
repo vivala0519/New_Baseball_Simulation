@@ -1,20 +1,36 @@
 from Batter_vs_Pitcher import Versus
+from Base_and_Scored import Base_and_Scored
 
-class process():
-    def h_vs_p(self):   # 타 vs 투
-        if Versus.versus(0, Versus.obp_dic, Versus.total_league_obp_oz) == True:
-            result = Versus.out_result(0)[0]
-            if result == '삼진':
-                ball_count = Versus.pitch_count_case_K(0)
-            else:
-                ball_count = Versus.pitch_count(0)
-        else:
-            result = Versus.hit_result(0)[0]
-            if result == '볼넷':
-                ball_count = Versus.pitch_count_case_BB(0)
-            else:
-                ball_count = Versus.pitch_count(0)
-        print(result, ', 투구 수 : ', ball_count)
-        return result, ball_count
+class Game_process():
+    def Inning_Process(self):
+        innings = range(1, 13)
+        base = [0, 0, 0]
+        home_score = 0
+        away_score = 0
+        home_pitcher_count = 0
+        away_pitcher_count = 0
+        for inning in innings:
+            for top_and_bottom in range(0, 2):
+                out = 0
+                print('-----------------', inning, '회 초 원정팀 공격 -----------------')
+                while out != 3:
+                    h_vs_p = Versus.h_vs_p(0)[0]
+                    if h_vs_p[2:4] == '아웃':
+                        out += 1
+                        print(h_vs_p, out, '아웃')
+                    else:
+                        hit_result = h_vs_p
+                        Base_and_Scored.base(hit_result, base)
+                        print(hit_result, base)
+                print('-----------------', inning, '회 말 홈팀 공격 -----------------')
+                out = 0
+                while out != 3:
+                    h_vs_p = Versus.h_vs_p(0)[0]
+                    if h_vs_p[2:4] == '아웃':
+                        out += 1
+                        print(h_vs_p, out, '아웃')
+                    else:
+                        print(h_vs_p)
 
-    h_vs_p(0)
+
+    Inning_Process(0)
