@@ -78,8 +78,8 @@ class Versus():
 
         batter_oz = batter_obp / (1 - batter_obp)
         pitcher_oz = (1 - pitcher_obp) / pitcher_obp
-        pitcher_league_obp_oz = (1 - pitcher_league_obp) / pitcher_league_obp
         batter_league_obp_oz = batter_league_obp / (1 - batter_league_obp)
+        pitcher_league_obp_oz = (1 - pitcher_league_obp) / pitcher_league_obp
         vs = ((batter_oz / batter_league_obp_oz) / (pitcher_oz / pitcher_league_obp_oz)) * total_league_obp_oz
         vs_obp = round(vs / (1 + vs), 3)
 
