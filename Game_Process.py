@@ -26,7 +26,10 @@ class Game_process():
                         base = result[0]
                         away_score += result[1]
                         print('away score : ', away_score)
-                print('-----------------', inning, '회 말 홈팀 공격 -----------------')
+                if inning > 8 and home_score > away_score:     # 9회 이상일때, 홈팀 점수가 어웨이 보다 높으면 종료
+                    break
+                else:
+                    print('-----------------', inning, '회 말 홈팀 공격 -----------------')
                 out = 0
                 while out != 3:
                     h_vs_p = Versus.h_vs_p(0)[0]
@@ -41,6 +44,12 @@ class Game_process():
                         base = result[0]
                         home_score += result[1]
                         print('home score : ', home_score)
+            if inning > 8 and (home_score > away_score or home_score < away_score):
+                break
+            else:
+                continue
+
+        print(away_score, " : ", home_score)
 
 
     Inning_Process(0)
