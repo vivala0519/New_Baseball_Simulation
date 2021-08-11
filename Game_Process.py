@@ -18,11 +18,13 @@ class Game_process():
         away_pitcher_count = 0
         home_hitter_report = ''
         away_hitter_report = ''
-        live_board = ''
+        live_board = {}
+        inning_report = ''
         report = ''
 
         for inning in innings:
             print('-----------------', inning, '회 초 원정팀 공격 -----------------')
+            inning_report += str(inning) + '회 초 원정 공격\n'
             out = 0
             who_is_attack = 'away'
             base = [0, 0, 0]
@@ -34,15 +36,19 @@ class Game_process():
                         home_pitcher_num += 1
                         home_pitcher_count = 0
                         print('투수 교체!!!')
+                        inning_report += '투수 교체\n'
                 res = Versus.h_vs_p(home_line_up, away_line_up, away_hitter_num, home_pitcher_num, who_is_attack)
                 h_vs_p = res[0]
                 ball_count = res[1]
                 print('현재 투수 :', res[3])
+                inning_report += '현재 투수 : ' + res[3] + '\n'
                 print(away_hitter_num, '번 타자 ', res[2])
+                inning_report += str(away_hitter_num) + '번 타자 : ' + res[2] + '\n'
                 if h_vs_p[2:4] == '아웃':
                     out += 1
                     away_hitter_report += str(away_hitter_num) + '번 아웃 + 1 '
                     print(h_vs_p, out, '아웃')
+                    inning_report += str(h_vs_p) + ' ' + str(out) + '아웃' + '\n'
                 else:
                     if h_vs_p == '볼넷':
                         away_hitter_report += str(away_hitter_num) + '번 볼넷 + 1 '
@@ -57,18 +63,23 @@ class Game_process():
                     away_score += result[1]
                     home_pitcher_count += ball_count
                     print('away score :', away_score)
+                    inning_report += 'away score : ' + str(away_score) + '\n'
                 home_pitcher_count += ball_count
                 away_hitter_num += 1
                 if away_hitter_num == 10:
                     away_hitter_num = 1
                 print('현재 투구 수 :', home_pitcher_count)
+                inning_report += '현재 투구 수 : ' + str(home_pitcher_count) + '\n' + '---------------------\n'
                 print('-----------------------')
             if inning > 8 and home_score > away_score:     # 9회 이상일때, 홈팀 점수가 어웨이 보다 높으면 종료
                 print(away_score, " : ", home_score)
+                inning_report += str(away_score) + ' : ' + str(home_score) + '\n'
                 break
             else:
                 print(away_score, " : ", home_score)
+                inning_report += str(away_score) + ' : ' + str(home_score) + '\n'
                 print('-----------------', inning, '회 말 홈팀 공격 -----------------')
+                inning_report += str(inning) + '회 말 홈 공격\n'
             out = 0
             who_is_attack = 'home'
             while out != 3:
@@ -79,15 +90,18 @@ class Game_process():
                         away_pitcher_num += 1
                         away_pitcher_count = 0
                         print('투수 교체!!!')
+                        inning_report += '투수교체!!\n'
                 res = Versus.h_vs_p(home_line_up, away_line_up, home_hitter_num, away_pitcher_num, who_is_attack)
                 h_vs_p = res[0]
                 ball_count = res[1]
                 print('현재 투수 :', res[3])
-                print(home_hitter_num, '번 타자')
+                print(home_hitter_num, '번 타자', res[2])
+                inning_report += '현재 투수 : ' + res[3] + '\n' + str(home_hitter_num) + '번 타자 : ' + res[2] + '\n'
                 if h_vs_p[2:4] == '아웃':
                     out += 1
                     home_hitter_report += str(home_hitter_num) + '번 아웃 + 1 '
                     print(h_vs_p, out, '아웃')
+                    inning_report += str(h_vs_p) + ' ' + str(out) + '아웃\n'
                 else:
                     if h_vs_p == '볼넷':
                         home_hitter_report += str(home_hitter_num) + '번 볼넷 + 1 '
@@ -101,6 +115,7 @@ class Game_process():
                     base = result[0]
                     home_score += result[1]
                     print('home score :', home_score)
+                    inning_report += 'home score : ' + str(home_score) + '\n'
                 away_pitcher_count += ball_count
                 home_hitter_num += 1
                 if home_hitter_num == 10:
@@ -108,8 +123,10 @@ class Game_process():
                 away_pitcher_count += ball_count
                 print('현재 투구 수 :', away_pitcher_count)
                 print('-----------------------')
+                inning_report += '현재 투구 수 : ' + str(away_pitcher_count) + '\n' + '-------------------\n'
             print(away_score, " : ", home_score)
+            inning_report += str(away_score) + ' : ' + str(home_score) + '\n'
             if inning > 8 and (home_score > away_score or home_score < away_score):
                 break
         print('game over')
-        return 'game over'
+        return inning_report
