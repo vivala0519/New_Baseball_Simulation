@@ -1,15 +1,14 @@
 from flask import Flask, render_template, jsonify, request
 app = Flask(__name__)
-import json
 from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
 db = client.project
+from Game_Process import Game_process
 
 ## HTML을 주는 부분
 @app.route('/')
 def home():
     return render_template('index.html')
-
 
 # 연도선택
 @app.route('/searchByYear', methods=['POST'])
@@ -103,7 +102,21 @@ def searchByStr():
     print(player)
     return jsonify(player)
 
+# play ball
+@app.route('/playBall', methods=['POST'])
+def playBall():
+    game = Game_process()
+    home_list = request.form['home_list']
+    home = home_list.split(',')
+    home_line_up = []
+    away_list = request.form['away_list']
+    away = away_list.split(',')
+    away_line_up = []
+    for i in range(0, home.__len__()-1):
+        home_line_up.append(home[i].split('-'))
+        away_line_up.append(away[i].split('-'))
 
+    return game.Inning_Process(home_line_up, away_line_up)
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5000, debug=True)

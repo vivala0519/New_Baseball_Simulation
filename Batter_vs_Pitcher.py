@@ -58,9 +58,35 @@ class Versus():
     total_league_obp_oz = total_league_obp / (1 - total_league_obp)
 
 
-    def versus(self, obp_dic, total_league_obp_oz):
-        hitter_data = db.kbo_batter_stat.find({'year': 2018, 'team': 'SK', 'name': '로맥'})
-        pitcher_data = db.kbo_pitcher_stat.find({'year': 2018, 'team': 'SK', 'name': '김광현'})
+    def versus(home_line_up, away_line_up, hitter_num, pitcher_num, who_is_attack):
+        # 라인업에서 현재 타석의 타자와 투수 도출
+        if who_is_attack == 'home':
+            now_hitter = home_line_up[hitter_num - 1][1] + '-' + home_line_up[hitter_num - 1][2]
+            now_pitcher = away_line_up[pitcher_num - 1][1] + '-' + away_line_up[pitcher_num - 1][2]
+        else:
+            now_hitter = away_line_up[hitter_num - 1][1] + '-' + away_line_up[hitter_num - 1][2]
+            now_pitcher = home_line_up[pitcher_num - 1][1] + '-' + home_line_up[pitcher_num - 1][2]
+
+        # 타자 데이터 다듬기
+        # print('in here', now_hitter, now_pitcher)
+        if int(now_hitter[:2]) < 60:
+            hitter_year = int(now_hitter[:2]) + 2000
+        else:
+            hitter_year = int(now_hitter[:2]) + 1900
+        hitter_team_trans = now_hitter.split('-')[0]
+        hitter_team = hitter_team_trans[2:]
+        hitter_name = now_hitter.split('-')[1]
+        # 투수 데이터 다듬기
+        if int(now_pitcher[:2]) < 60:
+            pitcher_year = int(now_pitcher[:2]) + 2000
+        else:
+            pitcher_year = int(now_pitcher[:2]) + 1900
+        pitcher_team_trans = now_pitcher.split('-')[0]
+        pitcher_team = pitcher_team_trans[2:]
+        pitcher_name = now_pitcher.split('-')[1]
+        # 타자, 투수 데이터(출루율) 가져오기
+        hitter_data = db.kbo_batter_stat.find({'year': hitter_year, 'team': hitter_team, 'name': hitter_name})
+        pitcher_data = db.kbo_pitcher_stat.find({'year': pitcher_year, 'team': pitcher_team, 'name': pitcher_name})
         hitter = []
         pitcher = []
         for item in hitter_data:
@@ -69,18 +95,18 @@ class Versus():
         for item in pitcher_data:
             pitcher.append(item['year'])
             pitcher.append(float(item['obp']))
-        hitter_year = hitter[0] - 2000
-        pitcher_year = pitcher[0] - 2000
+        hitter_year = int(str(hitter_year)[2:])
+        pitcher_year = int(str(pitcher_year)[2:])
         batter_obp = hitter[1]
         pitcher_obp = pitcher[1]
-        batter_league_obp = obp_dic[str(hitter_year)]
-        pitcher_league_obp = obp_dic[str(pitcher_year)]
+        batter_league_obp = Versus.obp_dic[str(hitter_year)]
+        pitcher_league_obp = Versus.obp_dic[str(pitcher_year)]
 
         batter_oz = batter_obp / (1 - batter_obp)
         pitcher_oz = (1 - pitcher_obp) / pitcher_obp
         batter_league_obp_oz = batter_league_obp / (1 - batter_league_obp)
         pitcher_league_obp_oz = (1 - pitcher_league_obp) / pitcher_league_obp
-        vs = ((batter_oz / batter_league_obp_oz) / (pitcher_oz / pitcher_league_obp_oz)) * total_league_obp_oz
+        vs = ((batter_oz / batter_league_obp_oz) / (pitcher_oz / pitcher_league_obp_oz)) * Versus.total_league_obp_oz
         vs_obp = round(vs / (1 + vs), 3)
 
         # print('타자 vs 투수 출루율 : ', vs_obp)
@@ -91,9 +117,9 @@ class Versus():
         # print(result)
 
         if result[0] == '출루':
-            return False
+            return False, hitter_name, pitcher_name
         else:
-            return True
+            return True, hitter_name, pitcher_name
 
 
     def hit_result(self):
@@ -158,8 +184,9 @@ class Versus():
 
         return pitch_count
 
-    def h_vs_p(self):   # 타 vs 투
-        if Versus.versus(0, Versus.obp_dic, Versus.total_league_obp_oz) == True:
+    def h_vs_p(home_line_up, away_line_up, away_hitter_num, home_pitcher_num, who_is_attack):   # 타 vs 투
+        choollu_res = Versus.versus(home_line_up, away_line_up, away_hitter_num, home_pitcher_num, who_is_attack)
+        if choollu_res[0] == True:
             result = Versus.out_result(0)[0]
             if result == '삼진':
                 ball_count = Versus.pitch_count_case_K(0)
@@ -172,4 +199,4 @@ class Versus():
             else:
                 ball_count = Versus.pitch_count(0)
         # print(result, ', 투구 수 : ', ball_count)
-        return result, ball_count
+        return result, ball_count, choollu_res[1], choollu_res[2]
