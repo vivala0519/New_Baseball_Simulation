@@ -84,6 +84,7 @@ class Versus():
         pitcher_team_trans = now_pitcher.split('-')[0]
         pitcher_team = pitcher_team_trans[2:]
         pitcher_name = now_pitcher.split('-')[1]
+
         # 타자, 투수 데이터(출루율) 가져오기
         hitter_data = db.kbo_batter_stat.find({'year': hitter_year, 'team': hitter_team, 'name': hitter_name})
         pitcher_data = db.kbo_pitcher_stat.find({'year': pitcher_year, 'team': pitcher_team, 'name': pitcher_name})
