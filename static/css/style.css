@@ -183,6 +183,7 @@ button:hover:before,button:hover:after{
     text-align: center;
     position: relative;
     bottom: 10px;
+    top: 1px;
 }
 .score_board_table {
     width: 100%;
