@@ -183,7 +183,6 @@ button:hover:before,button:hover:after{
     text-align: center;
     position: relative;
     bottom: 10px;
-    top: 1px;
 }
 .score_board_table {
     width: 100%;
@@ -283,7 +282,7 @@ button:hover:before,button:hover:after{
     left: 72px;
     right: 72px;
     margin-right: auto;
-    height: calc(100% - 200px);
+    height: calc(100% - 140px);
     z-index: 1;
 }
 #in_report_home{

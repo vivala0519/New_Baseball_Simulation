@@ -155,13 +155,27 @@ class Game_process():
                 # print('-----------------------')
                 # inning_report += '현재 투구 수 : ' + str(away_pitcher_count) + '\n'
                 inning_report += '-------------------\n'
-            print(away_score, " : ", home_score)
-            inning_report += str(away_score) + ' : ' + str(home_score) + '\n' + '-------------------\n'
-            score_board += str(inning_score) + ' '
-            inning_report += 'inning_cut_line'
-            if inning > 8 and (home_score > away_score or home_score < away_score):
-                end_inning = str(inning) + ' 말'
+                if inning > 8 and home_score > away_score:  # 끝내기 상황
+                    end_inning = str(inning) + ' 말 ' + str(out) + ' 아웃'
+                    inning_report += str(away_score) + ' : ' + str(home_score) + '\n' + '-------------------\n'
+                    score_board += str(inning_score) + ' '
+                    inning_report += 'inning_cut_line'
+                    break
+            # print(away_score, " : ", home_score)
+            if inning > 8 and home_score < away_score:  # 9회 이상에서 어웨이가 이기고 있을 때
+                end_inning = str(inning) + ' 말 3 아웃'
+                inning_report += str(away_score) + ' : ' + str(home_score) + '\n' + '-------------------\n'
+                score_board += str(inning_score) + ' '
+                inning_report += 'inning_cut_line'
                 break
+            else:   # 비기고 있을때
+                if inning > 8 and home_score > away_score:
+                    break
+                else:
+                    end_inning = str(inning) + ' 말 3 아웃'
+                    inning_report += str(away_score) + ' : ' + str(home_score) + '\n' + '-------------------\n'
+                    score_board += str(inning_score) + ' '
+                    inning_report += 'inning_cut_line'
         print('game over')
         inning_report += '경기 종료' + 'inning_cut_line'
         # 스코어 붙이기

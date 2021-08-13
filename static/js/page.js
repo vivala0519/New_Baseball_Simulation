@@ -189,10 +189,10 @@ function add_player_common(selectedPlayer, selectedPosition, selected_H_A, selec
                     $('#home_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
                     $('#home_table tr:eq('+i+')>td:eq(2)').append(selectedPosition);
                     $('#home_table tr:eq('+i+')>td:eq(0)').css({
-                        'color': '#483D8B', 'text-shadow':'2px 2px 2px gray'
+                        'color': '#C71585', 'text-shadow':'2px 2px 2px gray'
                     })
                     $('#home_table tr:eq('+i+')>td:eq(1)').css({
-                        'color': '#483D8B', 'text-shadow':'2px 2px 2px gray'
+                        'color': '#C71585', 'text-shadow':'2px 2px 2px gray'
                     })
                     break
                 }
@@ -205,10 +205,10 @@ function add_player_common(selectedPlayer, selectedPosition, selected_H_A, selec
                     $('#away_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
                     $('#away_table tr:eq('+i+')>td:eq(2)').append(selectedPosition);
                     $('#away_table tr:eq('+i+')>td:eq(0)').css({
-                        'color': '#483D8B', 'text-shadow':'2px 2px 2px gray'
+                        'color': '#C71585', 'text-shadow':'2px 2px 2px gray'
                     })
                     $('#away_table tr:eq('+i+')>td:eq(1)').css({
-                        'color': '#483D8B', 'text-shadow':'2px 2px 2px gray'
+                        'color': '#C71585', 'text-shadow':'2px 2px 2px gray'
                     })
                     break
                 }
@@ -736,22 +736,42 @@ function pitcher_report_append(){
         home_pitcher_list[i] = home_pitcher_list[i].replaceAll(to_replace, '').substring(2)
         away_pitcher_list[i] = away_pitcher_list[i].replaceAll(to_replace, '').substring(2)
     }
-    home_pitcher_report = '<p> 선발투수 ' + home_pitcher_list[0] + '</p>'
-    home_pitcher_report += '<p> 중계투수 ' + home_pitcher_list[1] + '</p>'
-    home_pitcher_report += '<p> 마무리투수 ' + home_pitcher_list[2] + '</p>'
-    away_pitcher_report = '<p> 선발투수 ' + away_pitcher_list[0] + '</p>'
-    away_pitcher_report += '<p> 중계투수 ' + away_pitcher_list[1] + '</p>'
-    away_pitcher_report += '<p> 마무리투수 ' + away_pitcher_list[2] + '</p>'
+    home_pitcher_sp = home_pitcher_list[0]
+    home_pitcher_rp = home_pitcher_list[1]
+    home_pitcher_cp = home_pitcher_list[2]
+    away_pitcher_sp = away_pitcher_list[0]
+    away_pitcher_rp = away_pitcher_list[1]
+    away_pitcher_cp = away_pitcher_list[2]
 
     // 이닝 도출하기
     home_pitcher_inning = pitcher_report_str.split('in')[1].split(', ')[0].split('change')
     away_pitcher_inning = pitcher_report_str.split('in')[1].split(', ')[1].split('change')
-    end_inning = ''
+    console.log(home_pitcher_inning, away_pitcher_inning)
+    end_inning = away_pitcher_inning.pop()
+    if(end_inning.length == 7){ // 9초에 경기가 끝나면 홈, 어웨이 투수 끝이닝
+        end_inning_away = 8
+        end_inning_home = 9
+    }
+    else{
+        end_inning_home = end_inning.split(' ')[1]
+        end_inning_away = String(Number(end_inning.split(' ')[1]) - 1)
+        dot = Number(end_inning.split(' ')[3])
+        if(dot == 3){
+            end_inning_away = Number(end_inning_away) + 1
+        }
+        else if(dot == 0){
+            end_inning_away = end_inning_away
+        }
+        else{
+            end_inning_away += '.' + String(dot)
+        }
+    }
+    console.log('end_inning_away : ', end_inning_away, 'end_inning_home : ', end_inning_home)
+
     // home
     if (home_pitcher_inning.length > 1) { // 완봉이 아닐경우
         home_pitcher_inning.splice(0, 1);
         // 선발투수 부문
-        end_inning = away_pitcher_inning.pop()
         home_sp_inning_arr = home_pitcher_inning[0].split('이닝')
         home_sp_inning = String(Number(home_sp_inning_arr[1]) - 1)
         if(Number(home_sp_inning_arr[2]) != 0){
@@ -760,22 +780,63 @@ function pitcher_report_append(){
         else{
             home_sp_inning += '이닝'
         }
-        // 중계 부문
-        if(home_pitcher_inning.length == 1){
-            continue
+        // 중계, 마무리 부문
+        if(home_pitcher_inning.length == 1){    // 선발과 중계만 나온 경우
+            to_cal = home_pitcher_inning[0].split('이닝')
+            front = to_cal[1]
+            back = to_cal[2]
+            sum = Number(front * 3) + Number(back)
+            to_cal = (end_inning_home + 1) * 3 - sum
+            front = Math.floor(to_cal / 3)
+            back = to_cal % 3
+            if(back == 0){
+                home_rp_inning = front + '이닝'
+            }
+            else{
+                home_rp_inning = front + '.' + back
+                home_rp_inning += '이닝'
+            }
+            home_cp_inning = ''
         }
-        else{
-        
+        else{   // 중계, 마무리 부문
+            home_rp_inning_arr = home_pitcher_inning[1].split('이닝')
+            to_cal = home_pitcher_inning[0].split('이닝')
+            to_cal = (Number(home_rp_inning_arr[1]) * 3 + Number(home_rp_inning_arr[2])) - (Number(to_cal[1]) * 3 + Number(to_cal[2]))
+            if(to_cal % 3 == 0){
+                home_rp_inning = to_cal / 3
+            }
+            else{
+                home_rp_inning = String(parseInt(to_cal / 3)) + '.' + String(to_cal % 3)
+            }
+            home_rp_inning += '이닝'
+            console.log('rp_inning : ',home_rp_inning)
+            // 마무리 부문
+            cut_sp = home_sp_inning.split('이닝')[0]
+            cut_rp = home_rp_inning.split('이닝')[0]
+            sum = Number(cut_sp) + Number(cut_rp)
+            sum = sum.toFixed(1)
+            sum = String(sum).split('.')
+            home_cp_inning = (end_inning_home * 3) - (Number(sum[0] * 3) + Number(sum[1]))
+            front = Math.floor(home_cp_inning / 3)
+            back = home_cp_inning % 3
+            if(back == 0){
+                home_cp_inning = front + '이닝'
+            }
+            else{
+                home_cp_inning = front + '.' + back
+                home_cp_inning += '이닝'
+            }
+
+            console.log('cp_inning : ', home_cp_inning)
         }
     }
     else{   // 완봉일 경우
-        home_sp_inning = end_inning.split(' ')[1] + '이닝'
+        home_sp_inning = end_inning
     }
-    // away
+    // Away-------------------------------------------------------------------------------
     if (away_pitcher_inning.length > 1) {
         away_pitcher_inning.splice(0, 1);
         // 선발투수 부문
-        end_inning = away_pitcher_inning.pop()
         away_sp_inning_arr = away_pitcher_inning[0].split('이닝')
         away_sp_inning = String(Number(away_sp_inning_arr[1]) - 1)
         if(Number(away_sp_inning_arr[2]) != 0){
@@ -784,15 +845,82 @@ function pitcher_report_append(){
         else{
             away_sp_inning += '이닝'
         }
+        // 중계, 마무리 부문
+        if(away_pitcher_inning.length == 1){    // 선발과 중계만 나온 경우
+            to_cal = away_pitcher_inning[0].split('이닝')
+            front = to_cal[1] - 1
+            back = to_cal[2]
+            sum = Number(front * 3) + Number(back)
+            end_inning_away = String(end_inning_away).split('.')
+            ending_front = end_inning_away[0]
+            ending_back = end_inning_away[1]
+            to_cal = ((ending_front * 3) + ending_back) - ((front * 3) + back)
+            front = Math.floor(to_cal / 3)
+            back = to_cal % 3
+            if(back == 0){
+                away_rp_inning = front + '이닝'
+            }
+            else{
+                away_rp_inning = front + '.' + back
+                away_rp_inning += '이닝'
+            }
+            away_cp_inning = ''
+        }
+        else{   // 중계, 마무리 부문
+            away_rp_inning_arr = away_pitcher_inning[1].split('이닝')
+            to_cal = away_pitcher_inning[0].split('이닝')
+            to_cal = (Number(away_rp_inning_arr[1]) * 3 + Number(away_rp_inning_arr[2])) - (Number(to_cal[1]) * 3 + Number(to_cal[2]))
+            if(to_cal % 3 == 0){
+                away_rp_inning = to_cal / 3
+            }
+            else{
+                away_rp_inning = String(parseInt(to_cal / 3)) + '.' + String(to_cal % 3)
+            }
+            away_rp_inning += '이닝'
+            console.log('rp_inning : ',away_rp_inning)
+            // 마무리 부문
+            cut_sp = away_sp_inning.split('이닝')[0]
+            cut_rp = away_rp_inning.split('이닝')[0]
+            console.log(cut_sp, cut_rp)
+            sum = Number(cut_sp) + Number(cut_rp)
+            sum = sum.toFixed(1)
+            sum = String(sum).split('.')
+            end_inning_away = Number(end_inning_away).toFixed(1)
+            end_inning_away = String(end_inning_away)
+            end_inning_away = end_inning_away.split('.')
+            console.log(end_inning_away)
+            ending_front = Number(end_inning_away[0])
+            console.log(ending_front)
+            ending_back = Number(end_inning_away[1])
+            console.log(ending_back)
+            away_cp_inning = ((ending_front * 3) + ending_back) - (Number(sum[0] * 3) + Number(sum[1]))
+            console.log(away_cp_inning)
+            front = Math.floor(away_cp_inning / 3)
+            back = away_cp_inning % 3
+            if(back == 0){
+                away_cp_inning = front + '이닝'
+            }
+            else{
+                away_cp_inning = front + '.' + back
+                away_cp_inning += '이닝'
+            }
+
+            console.log('cp_inning : ', away_cp_inning)
+        }
     }
     else{   // 완봉일 경우
-        away_sp_inning = end_inning.split(' ')[1] + '이닝'
+        away_sp_inning = end_inning
     }
-    console.log(end_inning)
-
-
     console.log(home_pitcher_inning, away_pitcher_inning)
-    console.log(home_sp_inning, away_sp_inning)
+    console.log(home_sp_inning, home_rp_inning, home_cp_inning, away_sp_inning, away_rp_inning, away_cp_inning)
+
+    $('#in_report_home').append('<p> 선발 투수 ' + home_pitcher_sp + ' ' + home_sp_inning + '</p>');
+    $('#in_report_home').append('<p> 중계 투수 ' + home_pitcher_sp + ' ' + home_rp_inning + '</p>');
+    $('#in_report_home').append('<p> 마무리 투수 ' + home_pitcher_sp + ' ' + home_cp_inning + '</p>');
+    $('#in_report_away').append('<p> 선발 투수 ' + away_pitcher_sp + ' ' + away_sp_inning + '</p>');
+    $('#in_report_away').append('<p> 중계 투수 ' + away_pitcher_sp + ' ' + away_rp_inning + '</p>');
+    $('#in_report_away').append('<p> 마무리 투수 ' + away_pitcher_sp + ' ' + away_cp_inning + '</p>');
+
 }
 // 기록창 off
 function off() {
@@ -803,4 +931,4 @@ function off() {
 // 기록창 on
 $(document).on("click", "#inning_button_13", function(){
     document.getElementById("report").style.display = "block";
-})
+});
