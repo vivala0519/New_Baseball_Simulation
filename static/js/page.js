@@ -137,10 +137,10 @@ function add_player_common(selectedPlayer, selectedPosition, selected_H_A, selec
                     $('#home_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
                     $('#home_table tr:eq('+i+')>td:eq(2)').append(selectedPosition);
                     $('#home_table tr:eq('+i+')>td:eq(0)').css({
-                        'color': '#483D8B', 'text-shadow':'2px 2px 2px gray'
+                        'color': '#00008B', 'text-shadow':'2px 2px 2px gray'
                     })
                     $('#home_table tr:eq('+i+')>td:eq(1)').css({
-                        'color': '#483D8B', 'text-shadow':'2px 2px 2px gray'
+                        'color': '#00008B', 'text-shadow':'2px 2px 2px gray'
                     })
                     break
                 }
@@ -169,10 +169,10 @@ function add_player_common(selectedPlayer, selectedPosition, selected_H_A, selec
                     $('#away_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
                     $('#away_table tr:eq('+i+')>td:eq(2)').append(selectedPosition);
                     $('#away_table tr:eq('+i+')>td:eq(0)').css({
-                        'color': '#483D8B', 'text-shadow':'2px 2px 2px gray'
+                        'color': '#00008B', 'text-shadow':'2px 2px 2px gray'
                     })
                     $('#away_table tr:eq('+i+')>td:eq(1)').css({
-                        'color': '#483D8B', 'text-shadow':'2px 2px 2px gray'
+                        'color': '#00008B', 'text-shadow':'2px 2px 2px gray'
                     })
                     break
                 }
@@ -189,10 +189,10 @@ function add_player_common(selectedPlayer, selectedPosition, selected_H_A, selec
                     $('#home_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
                     $('#home_table tr:eq('+i+')>td:eq(2)').append(selectedPosition);
                     $('#home_table tr:eq('+i+')>td:eq(0)').css({
-                        'color': '#C71585', 'text-shadow':'2px 2px 2px gray'
+                        'color': '#8B0000', 'text-shadow':'2px 2px 2px gray'
                     })
                     $('#home_table tr:eq('+i+')>td:eq(1)').css({
-                        'color': '#C71585', 'text-shadow':'2px 2px 2px gray'
+                        'color': '#8B0000', 'text-shadow':'2px 2px 2px gray'
                     })
                     break
                 }
@@ -205,10 +205,10 @@ function add_player_common(selectedPlayer, selectedPosition, selected_H_A, selec
                     $('#away_table tr:eq('+i+')>td:eq(1)').append(selectedPlayer);
                     $('#away_table tr:eq('+i+')>td:eq(2)').append(selectedPosition);
                     $('#away_table tr:eq('+i+')>td:eq(0)').css({
-                        'color': '#C71585', 'text-shadow':'2px 2px 2px gray'
+                        'color': '#8B0000', 'text-shadow':'2px 2px 2px gray'
                     })
                     $('#away_table tr:eq('+i+')>td:eq(1)').css({
-                        'color': '#C71585', 'text-shadow':'2px 2px 2px gray'
+                        'color': '#8B0000', 'text-shadow':'2px 2px 2px gray'
                     })
                     break
                 }
@@ -679,7 +679,7 @@ function report_arrange(){
         home_report_number.push(number)
     }
 
-//    console.log(away_report_number, away_report_hit, away_report_out, away_report_bb, away_report_dic)
+//    console.log('away_report_number : ', away_report_number, 'away_report_hit : ', away_report_hit, 'away_report_out', away_report_out, 'away_report_bb', away_report_bb, 'away_report_dic', away_report_dic)
 //    console.log(home_report_number, home_report_hit, home_report_out, home_report_bb, home_report_dic)
 
 
@@ -690,7 +690,13 @@ function report_arrange(){
     for(var i = 0; i < 9; i++){
         home_list[i] = home_list[i].replace('-','번 ')
         home_list[i] = home_list[i].replace('-',' ')
-        home_list[i] = home_list[i] + ' : ' + home_report_number[i] + '타수 ' + home_report_hit[i] + '안타'
+        if(home_report_bb[i] == 0){
+            home_list[i] = home_list[i] + ' : <span class="record">' + home_report_number[i] + '타수 ' + home_report_hit[i] + '안타</span>'
+        }
+        else{
+            home_list[i] = home_list[i] + ' : <span class="record">' + home_report_number[i] + '타수 ' + home_report_hit[i] + '안타 ' + home_report_bb[i] + '볼넷</span>'
+        }
+
     }
     away_list = away_list.split(',')
     away_list[0] = away_list[0].replace('-','번 ')
@@ -698,7 +704,13 @@ function report_arrange(){
     for(var i = 0; i < 9; i++){
         away_list[i] = away_list[i].replace('-','번 ')
         away_list[i] = away_list[i].replace('-',' ')
-        away_list[i] = away_list[i] + ' : ' + away_report_number[i] + '타수 ' + away_report_hit[i] + '안타'
+        if(away_report_bb[i] == 0){
+            away_list[i] = away_list[i] + ' : <span class="record">' + away_report_number[i] + '타수 ' + away_report_hit[i] + '안타</span>'
+        }
+        else{
+            away_list[i] = away_list[i] + ' : <span class="record">' + away_report_number[i] + '타수 ' + away_report_hit[i] + '안타 ' + away_report_bb[i] + '볼넷</span>'
+        }
+
     }
     // 스코어보드 H, B attach
     $('#score_board_table tr:eq(1)>td:eq(14)').empty()
@@ -714,12 +726,14 @@ function report_arrange(){
     $('#in_report').empty();
     score_board = $('#score_board').clone()
     $('#in_report').append(score_board);
+    $('#in_report_home').append('<h4 > Home </h4>')
+    $('#in_report_away').append('<h4 > Away </h4>')
 
     for(var i = 0; i < 9; i++) {
-        $('#in_report_home').append('<p>' + home_list[i] + '</p>');
+        $('#in_report_home').append('<p class="report_font">' + home_list[i] + '</p>');
     }
     for(var i = 0; i < 9; i++) {
-        $('#in_report_away').append('<p>' + away_list[i] + '</p>');
+        $('#in_report_away').append('<p class="report_font">' + away_list[i] + '</p>');
     }
 
     document.getElementById("report").style.display = "block";
@@ -737,16 +751,21 @@ function pitcher_report_append(){
         away_pitcher_list[i] = away_pitcher_list[i].replaceAll(to_replace, '').substring(2)
     }
     home_pitcher_sp = home_pitcher_list[0]
+    home_pitcher_sp = home_pitcher_sp.substring(0,4) + ' ' + home_pitcher_sp.substring(4)
     home_pitcher_rp = home_pitcher_list[1]
+    home_pitcher_rp = home_pitcher_rp.substring(0,4) + ' ' + home_pitcher_rp.substring(4)
     home_pitcher_cp = home_pitcher_list[2]
+    home_pitcher_cp = home_pitcher_cp.substring(0,4) + ' ' + home_pitcher_cp.substring(4)
     away_pitcher_sp = away_pitcher_list[0]
+    away_pitcher_sp = away_pitcher_sp.substring(0,4) + ' ' + away_pitcher_sp.substring(4)
     away_pitcher_rp = away_pitcher_list[1]
+    away_pitcher_rp = away_pitcher_rp.substring(0,4) + ' ' + away_pitcher_rp.substring(4)
     away_pitcher_cp = away_pitcher_list[2]
+    away_pitcher_cp = away_pitcher_cp.substring(0,4) + ' ' + away_pitcher_cp.substring(4)
 
     // 이닝 도출하기
     home_pitcher_inning = pitcher_report_str.split('in')[1].split(', ')[0].split('change')
     away_pitcher_inning = pitcher_report_str.split('in')[1].split(', ')[1].split('change')
-    console.log(home_pitcher_inning, away_pitcher_inning)
     end_inning = away_pitcher_inning.pop()
     if(end_inning.length == 7){ // 9초에 경기가 끝나면 홈, 어웨이 투수 끝이닝
         end_inning_away = 8
@@ -766,7 +785,6 @@ function pitcher_report_append(){
             end_inning_away += '.' + String(dot)
         }
     }
-    console.log('end_inning_away : ', end_inning_away, 'end_inning_home : ', end_inning_home)
 
     // home
     if (home_pitcher_inning.length > 1) { // 완봉이 아닐경우
@@ -783,12 +801,19 @@ function pitcher_report_append(){
         // 중계, 마무리 부문
         if(home_pitcher_inning.length == 1){    // 선발과 중계만 나온 경우
             to_cal = home_pitcher_inning[0].split('이닝')
+            console.log(to_cal)
             front = to_cal[1]
+            console.log(front)
             back = to_cal[2]
+            console.log(back)
             sum = Number(front * 3) + Number(back)
-            to_cal = (end_inning_home + 1) * 3 - sum
+            console.log(sum)
+            to_cal = ((end_inning_home + 1) * 3) - sum
+            console.log(to_cal)
             front = Math.floor(to_cal / 3)
+            console.log(front)
             back = to_cal % 3
+            console.log(back)
             if(back == 0){
                 home_rp_inning = front + '이닝'
             }
@@ -809,7 +834,6 @@ function pitcher_report_append(){
                 home_rp_inning = String(parseInt(to_cal / 3)) + '.' + String(to_cal % 3)
             }
             home_rp_inning += '이닝'
-            console.log('rp_inning : ',home_rp_inning)
             // 마무리 부문
             cut_sp = home_sp_inning.split('이닝')[0]
             cut_rp = home_rp_inning.split('이닝')[0]
@@ -826,8 +850,6 @@ function pitcher_report_append(){
                 home_cp_inning = front + '.' + back
                 home_cp_inning += '이닝'
             }
-
-            console.log('cp_inning : ', home_cp_inning)
         }
     }
     else{   // 완봉일 경우
@@ -877,24 +899,18 @@ function pitcher_report_append(){
                 away_rp_inning = String(parseInt(to_cal / 3)) + '.' + String(to_cal % 3)
             }
             away_rp_inning += '이닝'
-            console.log('rp_inning : ',away_rp_inning)
             // 마무리 부문
             cut_sp = away_sp_inning.split('이닝')[0]
             cut_rp = away_rp_inning.split('이닝')[0]
-            console.log(cut_sp, cut_rp)
             sum = Number(cut_sp) + Number(cut_rp)
             sum = sum.toFixed(1)
             sum = String(sum).split('.')
             end_inning_away = Number(end_inning_away).toFixed(1)
             end_inning_away = String(end_inning_away)
             end_inning_away = end_inning_away.split('.')
-            console.log(end_inning_away)
             ending_front = Number(end_inning_away[0])
-            console.log(ending_front)
             ending_back = Number(end_inning_away[1])
-            console.log(ending_back)
             away_cp_inning = ((ending_front * 3) + ending_back) - (Number(sum[0] * 3) + Number(sum[1]))
-            console.log(away_cp_inning)
             front = Math.floor(away_cp_inning / 3)
             back = away_cp_inning % 3
             if(back == 0){
@@ -904,22 +920,121 @@ function pitcher_report_append(){
                 away_cp_inning = front + '.' + back
                 away_cp_inning += '이닝'
             }
-
-            console.log('cp_inning : ', away_cp_inning)
         }
     }
     else{   // 완봉일 경우
         away_sp_inning = end_inning
     }
-    console.log(home_pitcher_inning, away_pitcher_inning)
-    console.log(home_sp_inning, home_rp_inning, home_cp_inning, away_sp_inning, away_rp_inning, away_cp_inning)
 
-    $('#in_report_home').append('<p> 선발 투수 ' + home_pitcher_sp + ' ' + home_sp_inning + '</p>');
-    $('#in_report_home').append('<p> 중계 투수 ' + home_pitcher_sp + ' ' + home_rp_inning + '</p>');
-    $('#in_report_home').append('<p> 마무리 투수 ' + home_pitcher_sp + ' ' + home_cp_inning + '</p>');
-    $('#in_report_away').append('<p> 선발 투수 ' + away_pitcher_sp + ' ' + away_sp_inning + '</p>');
-    $('#in_report_away').append('<p> 중계 투수 ' + away_pitcher_sp + ' ' + away_rp_inning + '</p>');
-    $('#in_report_away').append('<p> 마무리 투수 ' + away_pitcher_sp + ' ' + away_cp_inning + '</p>');
+    // 실점 attach
+    /// str 정제
+    lost_str = pitcher_report_str.split('lost ')[1]
+    lost_str_home = lost_str.split(',and ')[0]
+    lost_str_away = lost_str.split(',and ')[1]
+    lost_str_home_arr = lost_str_home.split(',')
+    lost_str_away_arr = lost_str_away.split(',')
+    lost_str_home_arr[0] = lost_str_home_arr[0].substring(4)
+    lost_str_away_arr[0] = lost_str_away_arr[0].substring(4)
+    lost_str_home_arr = lost_str_home_arr.filter((element) => element !== '');
+    lost_str_away_arr = lost_str_away_arr.filter((element) => element !== '');
+//    console.log(lost_str_home_arr, lost_str_away_arr)
+    /// sp, rp, cp 나누기
+    home_sp_lost = 0
+    home_rp_lost = 0
+    home_cp_lost = 0
+    away_sp_lost = 0
+    away_rp_lost = 0
+    away_cp_lost = 0
+    for(i = 0; i < lost_str_home_arr.length; i++){
+        if(lost_str_home_arr[i].split('-')[0] == '10'){     // 선발
+            home_sp_lost += Number(lost_str_home_arr[i].split('-')[1])
+        }
+        if(lost_str_home_arr[i].split('-')[0] == '11'){     // 중계
+            home_rp_lost += Number(lost_str_home_arr[i].split('-')[1])
+        }
+        if(lost_str_home_arr[i].split('-')[0] == '12'){    // 마무리
+            home_cp_lost += Number(lost_str_home_arr[i].split('-')[1])
+        }
+    }
+    for(i = 0; i < lost_str_away_arr.length; i++){
+        if(lost_str_away_arr[i].split('-')[0] == '10'){     // 선발
+            away_sp_lost += Number(lost_str_away_arr[i].split('-')[1])
+        }
+        if(lost_str_away_arr[i].split('-')[0] == '11'){     // 중계
+            away_rp_lost += Number(lost_str_away_arr[i].split('-')[1])
+        }
+        if(lost_str_away_arr[i].split('-')[0] == '12'){     // 마무리
+            away_cp_lost += Number(lost_str_away_arr[i].split('-')[1])
+        }
+    }
+//    console.log(home_sp_lost, home_rp_lost, home_cp_lost, away_sp_lost, away_rp_lost, away_cp_lost)
+
+    // 삼진 attach
+    /// str 정제
+    k_str = pitcher_report_str.split('k ')[1]
+    k_str = k_str.split(',')[0]
+    k_str_home = k_str.split('and ')[0].substring(4)
+    k_str_away = k_str.split('and ')[1].substring(4)
+//    console.log(k_str_home, k_str_away)
+    home_sp_k = 0
+    home_rp_k = 0
+    home_cp_k = 0
+    away_sp_k = 0
+    away_rp_k = 0
+    away_cp_k = 0
+    for(i = 0; i < k_str_home.length; i += 3){
+        if(k_str_home.substring(i, i + 2) == '10'){
+            home_sp_k += 1
+        }
+        if(k_str_home.substring(i, i + 2) == '11'){
+            home_rp_k += 1
+          }
+        if(k_str_home.substring(i, i + 2) == '12'){
+            home_cp_k += 1
+        }
+    }
+    for(i = 0; i < k_str_away.length; i += 3){
+        if(k_str_away.substring(i, i + 2) == '10'){
+            away_sp_k += 1
+        }
+        if(k_str_away.substring(i, i + 2) == '11'){
+            away_rp_k += 1
+          }
+        if(k_str_away.substring(i, i + 2) == '12'){
+            away_cp_k += 1
+        }
+    }
+//    console.log(home_sp_k, home_rp_k, home_cp_k, away_sp_k, away_rp_k, away_cp_k)
+
+
+    // report 창 send
+    $('#in_report_home').append('<hr><p class="report_font"> 선발 ' + home_pitcher_sp + ' : <span class="record">' + home_sp_inning + ' ' + home_sp_lost + '실점 ' + home_sp_k + '삼진</span></p>');
+    if(home_rp_inning == ''){
+        $('#in_report_home').append('<p class="report_font"> 중계 ' + home_pitcher_rp + ' : <span class="record">' + home_rp_inning + '</span></p>');
+    }
+    else{
+        $('#in_report_home').append('<p class="report_font"> 중계 ' + home_pitcher_rp + ' : <span class="record">' + home_rp_inning + ' ' + home_rp_lost + '실점 ' + home_rp_k + '삼진</span></p>');
+    }
+    if(home_cp_inning == ''){
+        $('#in_report_home').append('<p class="report_font"> 마무리 ' + home_pitcher_cp + ' : <span class="record">' + home_cp_inning + '</span></p>');
+    }
+    else{
+        $('#in_report_home').append('<p class="report_font"> 마무리 ' + home_pitcher_cp + ' : <span class="record">' + home_cp_inning + ' ' + home_cp_lost + '실점 ' + home_cp_k + '삼진</span></p>');
+    }
+
+    $('#in_report_away').append('<hr><p class="report_font"> 선발 ' + away_pitcher_sp + ' : <span class="record">' + away_sp_inning + ' ' + away_sp_lost + '실점 ' + away_sp_k + '삼진</span></p>');
+    if(away_rp_inning == ''){
+        $('#in_report_away').append('<p class="report_font"> 중계 ' + away_pitcher_rp + ' : <span class="record">' + away_rp_inning + '</span></p>');
+    }
+    else{
+        $('#in_report_away').append('<p class="report_font"> 중계 ' + away_pitcher_rp + ' : <span class="record">' + away_rp_inning + ' ' + away_rp_lost + '실점 ' + away_rp_k + '삼진</span></p>');
+    }
+    if(away_cp_inning == ''){
+        $('#in_report_away').append('<p class="report_font"> 마무리 ' + away_pitcher_cp + ' : <span class="record">' + away_cp_inning + '</span></p>');
+    }
+    else{
+        $('#in_report_away').append('<p class="report_font"> 마무리 ' + away_pitcher_cp + ' : <span class="record">' + away_cp_inning + ' ' + away_cp_lost + '실점 ' + away_cp_k + '삼진</span></p>');
+    }
 
 }
 // 기록창 off

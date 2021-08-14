@@ -1,5 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KCC-eunyoung-Regular.woff') format('woff');
+
 * {
     font-family: "Do Hyeon", sans-serif;
 }
@@ -276,7 +279,7 @@ button:hover:before,button:hover:after{
     margin-left: auto;
     max-width: 800px;
     border-radius: 3px;
-    background: white;
+    background: #FAFAD2;
     box-shadow: rgb(15 15 15 / 5%) 0px 0px 0px 1px, rgb(15 15 15 / 10%) 0px 5px 10px, rgb(15 15 15 / 20%) 0px 15px 40px;
     top: 120px;
     left: 72px;
@@ -285,14 +288,38 @@ button:hover:before,button:hover:after{
     height: calc(100% - 140px);
     z-index: 1;
 }
+
+@font-face {
+    font-family: 'BinggraeSamanco-Bold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10@1.0/BinggraeSamanco-Bold.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Cafe24Shiningstar';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Shiningstar.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 #in_report_home{
     float:left;
-    margin-left: 170px;
+    margin-left: 80px;
+    margin-right: 10px;
 }
 #in_report_away{
     float:right;
     text-align:left;
-    margin-right: 170px;
+    margin-right: 60px;
+}
+.report_font{
+    font-family: 'BinggraeSamanco-Bold';
+    font-size: 23px;
+    font-weight: bold;
+}
+.record{
+    font-family: 'Cafe24Shiningstar';
+    font-size: 25px;
+    font-weight: normal;
 }
 .search_overlay_button{
     background-color: #FFDAB9;

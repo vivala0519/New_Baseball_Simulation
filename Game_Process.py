@@ -77,7 +77,7 @@ class Game_process():
                     away_score += result[1]
                     if result[1] >= 1:
                         inning_report += '<p style="color:#191970">득점! + ' + str(result[1]) + '</p>'
-                        home_pitcher_lost_score += str(home_pitcher_num) + str(result[1]) + ','
+                        home_pitcher_lost_score += str(home_pitcher_num) + '-' + str(result[1]) + ','
                     inning_score += result[1]
                     home_pitcher_count += ball_count
                     # print('away score :', away_score)
@@ -144,7 +144,7 @@ class Game_process():
                     inning_score += result[1]
                     if result[1] >= 1:
                         inning_report += '<p style="color:#191970">득점! + ' + str(result[1]) + '</p>'
-                        away_pitcher_lost_score += str(away_pitcher_num) + str(result[1]) + ','
+                        away_pitcher_lost_score += str(away_pitcher_num) + '-' + str(result[1]) + ','
                     # print('home score :', home_score)
                 away_pitcher_count += ball_count
                 home_hitter_num += 1
@@ -185,6 +185,6 @@ class Game_process():
         inning_report += 'score_board here_total pitchers' + str(home_line_up[9:12]) + str(away_line_up[9:12])
         inning_report += 'inhome' + home_pitcher_report + ', away' + away_pitcher_report + 'change이닝은 ' + end_inning + 'in'
         inning_report += 'k home' + home_pitcher_k + 'and away' + away_pitcher_k + ', '
-        inning_report += 'lost home' + home_pitcher_lost_score + 'and away' + away_pitcher_lost_score
+        inning_report += 'lost home,' + home_pitcher_lost_score + 'and away,' + away_pitcher_lost_score
         print(inning_report)
         return inning_report
