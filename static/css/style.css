@@ -1,13 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap');
-@import url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/KCC-eunyoung-Regular.woff') format('woff');
-
+@font-face {
+    font-family: 'ONE-Mobile-POP';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
 * {
-    font-family: "Do Hyeon", sans-serif;
+    font-family: 'ONE-Mobile-POP';
 }
 .header {
-    padding-left: 20px;
     margin-top: 5px;
 }
 .header_image {
@@ -18,6 +21,110 @@
 }
 
 
+.help {
+  width: 40px;
+  margin: 0 auto;
+
+}
+
+.help .question {
+  height: 40px;
+  width: 40px;
+  background: #E6E6FA;
+  font-size: 32px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #DC143C;
+}
+
+.help .popup, .help .popup2 {
+  width: 560px;
+  height: 0px;
+  text-align: left;
+  overflow: hidden;
+  position: relative;
+  background: ivory;
+  opacity: 0;
+  transition: 1s;
+}
+
+.help .popup {
+  left: -260px;
+  top: 10px;
+}
+
+.help .popup2 {
+  height: 220px;
+}
+
+.help .popup2 h4 {
+  font-size: 18px;
+  padding: 10px;
+  margin: 0;
+}
+
+.help:hover .popup {
+  opacity: 1;
+  height: 270px;
+}
+
+.help .tell-me p:first-child {
+  color: #317eac;
+  cursor: pointer;
+}
+
+.tell-me {
+  width: 150px;
+}
+
+.help .tell-me:hover .popup2 {
+  top: -220px;
+  opacity: 1;
+}
+
+.help .popup h3 {
+  margin: 0;
+  padding: 10px 0 0 10px;
+  height: 30px;
+  background: #9ACD32;
+  color: #fff;
+  font-weight: 400;
+  font-size: 18px;
+}
+.help .popup p {
+    font-size: 16px;
+    padding: 10px;
+    margin: 0;
+    color: black;
+    font-family: 'ONE-Mobile-POP';
+}
+
+.help .popup .popup2 .sub-levels {
+  padding: 0 0 10px 140px;
+}
+
+.help .popup .popup2 .sub-levels strong {
+  font-size: 20px;
+}
+
+.help .popup .popup2 p:nth-child(5) {
+  padding: 20px 0 0 10px;
+}
+
+.help .popup a {
+  text-decoration: none;
+  color: #317eac;
+}
+
+.help .popup a:visited {
+  color: #317eac;
+}
+
+.help .popup p em {
+  font-size: 12px;
+}
 <!--선수선택창 css-->
 
 .select_and_body{
@@ -46,7 +153,9 @@
 .search_modal {
     font-size: 20px;
     margin: 0 auto;
-    margin-left: 170px;
+    float: center;
+    position:relative;
+    left: 150px;
     width: 90%;
 }
 .search_info{
@@ -80,7 +189,7 @@
     bottom: 3px;
 }
 .search_image {
-    width: 70%;
+    width: 60%;
 }
 .my_button{
     background:#CEF6CE;

@@ -348,9 +348,10 @@ $(document).on("click", "#search_button", function(){
     document.getElementById("overlay").style.display = "block";
 })
 // 오버레이 닫기
-function off() {
+function overlay_off() {
     console.log('close')
     document.getElementById("overlay").style.display = "none";
+    console.log('hi')
     $('#overlay_in').empty();
     $('#searchStr').focus();
     }
