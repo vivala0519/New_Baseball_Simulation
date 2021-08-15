@@ -292,10 +292,10 @@ function cancel_click(clicked_value){
         $('#home_table tr:eq('+arr[0][1]+')>td:eq(2)').empty();
         $('#home_table tr:eq('+arr[0][1]+')>td:eq(1)').append('player');
         $('#home_table tr:eq('+arr[0][1]+')>td:eq(0)').css({
-            'color': '#aaa'
+            'color': '', 'text-shadow': ''
         })
         $('#home_table tr:eq('+arr[0][1]+')>td:eq(1)').css({
-            'color': '#aaa'
+            'color': '', 'text-shadow': ''
         })
         console.log('complete')
     }
@@ -304,10 +304,10 @@ function cancel_click(clicked_value){
         $('#away_table tr:eq('+arr[0][1]+')>td:eq(2)').empty();
         $('#away_table tr:eq('+arr[0][1]+')>td:eq(1)').append('player');
         $('#away_table tr:eq('+arr[0][1]+')>td:eq(0)').css({
-            'color': '#aaa'
+            'color': '', 'text-shadow': ''
         })
         $('#away_table tr:eq('+arr[0][1]+')>td:eq(1)').css({
-            'color': '#aaa'
+            'color': '', 'text-shadow': ''
         })
         console.log('complete')
     }
