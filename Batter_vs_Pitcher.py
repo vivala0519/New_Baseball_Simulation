@@ -1,6 +1,7 @@
 from random import choices
 from pymongo import MongoClient
 client = MongoClient('mongodb://test:test@localhost', 27017)
+# client = MongoClient('localhost', 27017)
 db = client.project
 
 class Versus():
@@ -84,7 +85,6 @@ class Versus():
         pitcher_team_trans = now_pitcher.split('-')[0]
         pitcher_team = pitcher_team_trans[2:]
         pitcher_name = now_pitcher.split('-')[1]
-
         # 타자, 투수 데이터(출루율) 가져오기
         hitter_data = db.kbo_batter_stat.find({'year': hitter_year, 'team': hitter_team, 'name': hitter_name})
         pitcher_data = db.kbo_pitcher_stat.find({'year': pitcher_year, 'team': pitcher_team, 'name': pitcher_name})
@@ -96,12 +96,12 @@ class Versus():
         for item in pitcher_data:
             pitcher.append(item['year'])
             pitcher.append(float(item['obp']))
-        hitter_year = int(str(hitter_year)[2:])
-        pitcher_year = int(str(pitcher_year)[2:])
+        hitter_year = str(hitter_year)[2:]
+        pitcher_year = str(pitcher_year)[2:]
         batter_obp = hitter[1]
         pitcher_obp = pitcher[1]
-        batter_league_obp = Versus.obp_dic[str(hitter_year)]
-        pitcher_league_obp = Versus.obp_dic[str(pitcher_year)]
+        batter_league_obp = Versus.obp_dic[hitter_year]
+        pitcher_league_obp = Versus.obp_dic[pitcher_year]
 
         batter_oz = batter_obp / (1 - batter_obp)
         pitcher_oz = (1 - pitcher_obp) / pitcher_obp

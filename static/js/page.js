@@ -251,7 +251,7 @@ function add_click() {
         let selectedYear = $('#yearSelect option:selected').val();
         let selectedTeam = $('#team option:selected').val();
         let selectedPlayer = $('#player option:selected').val();
-        console.log(selectedYear, selectedTeam, selectedPlayer)
+//        console.log(selectedYear, selectedTeam, selectedPlayer)
         $.ajax({
             url:'/addPlayer',
             type:'POST',
@@ -265,7 +265,7 @@ function add_click() {
 }
 // 오버레이창 선수 추가
 function add_player_overlay(i){
-    console.log(i);
+//    console.log(i);
     var kin = $('#added_player_' + i).text();
     var arr = kin.split('  ');
     let selected_H_A = $('#sel_home_away_' + i).find('option:selected').text();
@@ -277,14 +277,14 @@ function add_player_overlay(i){
         alert('홈/어웨이 선택해');
     }
     else{
-        console.log(selected_H_A, selectedPlayer, selectedPosition);
+//        console.log(selected_H_A, selectedPlayer, selectedPosition);
         add_player_common(selectedPlayer, selectedPosition, selected_H_A, selectedYear, selectedTeam);
         off()
     }
 }
 // 선수 선택 취소
 function cancel_click(clicked_value){
-    console.log(clicked_value)
+//    console.log(clicked_value)
     arr = []
     arr.push(clicked_value.split('_'))
     if(arr[0][0] == 'home'){
@@ -297,7 +297,7 @@ function cancel_click(clicked_value){
         $('#home_table tr:eq('+arr[0][1]+')>td:eq(1)').css({
             'color': '', 'text-shadow': ''
         })
-        console.log('complete')
+//        console.log('complete')
     }
     else{
         $('#away_table tr:eq('+arr[0][1]+')>td:eq(1)').empty();
@@ -309,7 +309,7 @@ function cancel_click(clicked_value){
         $('#away_table tr:eq('+arr[0][1]+')>td:eq(1)').css({
             'color': '', 'text-shadow': ''
         })
-        console.log('complete')
+//        console.log('complete')
     }
 }
 
@@ -317,13 +317,13 @@ function cancel_click(clicked_value){
 $(document).on("click", "#search_button", function(){
     str = $('#searchStr').val()
     str = str.trim()
-    console.log(str)
+//    console.log(str)
     $.ajax({
         url:'/searchByStr',
         type:'POST',
         data : {'str' : str},
         success: function(data) {
-            console.log(data)
+//            console.log(data)
             if(data.length < 1) {
                 $('#overlay_in').append('<br><br><br><br><br><br><br><br><br><br><h1>검색 결과가 없습니당;</h1>');
             }
@@ -332,7 +332,7 @@ $(document).on("click", "#search_button", function(){
                 let team = data[i]['team']
                 let name = data[i]['name']
                 let position = data[i]['position']
-                console.log(year, team, name, position)
+//                console.log(year, team, name, position)
                 let output = '<div id="added_player_'+ i +'" style="display:inline;">';
                 output += year;
                 output += '  ' + team;
@@ -349,16 +349,16 @@ $(document).on("click", "#search_button", function(){
 })
 // 오버레이 닫기
 function overlay_off() {
-    console.log('close')
+//    console.log('close')
     document.getElementById("overlay").style.display = "none";
-    console.log('hi')
+//    console.log('hi')
     $('#overlay_in').empty();
     $('#searchStr').focus();
     }
 // 선수검색 키워드 엔터 눌렀을때
 function enterkey() {
     if(window.event.keyCode == 13){
-        console.log('enter')
+//        console.log('enter')
         $('#search_button').click()
     }
 }
@@ -742,7 +742,7 @@ function report_arrange(){
 
 // 투수기록 기록창 attach
 function pitcher_report_append(){
-    console.log(pitcher_report_str)
+//    console.log(pitcher_report_str)
     // 선발, 중계, 마무리 분류
     home_pitcher_list = pitcher_report_str.split(']]')[0].split('[[')[1].split('], [')
     away_pitcher_list = pitcher_report_str.split(']]')[1].split('[[')[1].split('], [')

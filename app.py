@@ -116,7 +116,7 @@ def playBall():
     for i in range(0, home.__len__()-1):
         home_line_up.append(home[i].split('-'))
         away_line_up.append(away[i].split('-'))
-
+    print(home_line_up, away_line_up)
     return game.Inning_Process(home_line_up, away_line_up)
 
 if __name__ == '__main__':
