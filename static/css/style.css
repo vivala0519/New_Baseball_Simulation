@@ -10,6 +10,9 @@
 * {
     font-family: 'ONE-Mobile-POP';
 }
+.container{
+    margin-left: 0px;
+}
 .header {
     margin-top: 5px;
 }
@@ -22,32 +25,33 @@
 
 
 .help {
-  width: 40px;
-  margin: 0 auto;
+    width: 50px;
+    margin: 0 auto;
+    margin-left: 720px;
 
 }
 
 .help .question {
-  height: 40px;
-  width: 40px;
-  background: #E6E6FA;
-  font-size: 32px;
-  line-height: 40px;
-  text-align: center;
-  border-radius: 50%;
-  cursor: pointer;
-  color: #DC143C;
+    height: 40px;
+    width: 40px;
+    background: #E6E6FA;
+    font-size: 32px;
+    line-height: 40px;
+    text-align: center;
+    border-radius: 50%;
+    cursor: pointer;
+    color: #DC143C;
 }
 
 .help .popup, .help .popup2 {
-  width: 560px;
-  height: 0px;
-  text-align: left;
-  overflow: hidden;
-  position: relative;
-  background: ivory;
-  opacity: 0;
-  transition: 1s;
+    width: 560px;
+    height: 0px;
+    text-align: left;
+    overflow: hidden;
+    position: relative;
+    background: ivory;
+    opacity: 0;
+    transition: 1s;
 }
 
 .help .popup {
