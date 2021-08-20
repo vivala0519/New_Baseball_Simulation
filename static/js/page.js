@@ -376,7 +376,8 @@ window.onkeyup = function(e) {
 let inning_on_off = document.getElementsByClassName('inning_button');
 let record = document.getElementsByClassName('record_board');
 function handleClick(event){
-    if($('#record_board_0').length == 1){
+    console.log('hi')
+    if($('#record_board_0').css("display") == "block"){
         return
     }
     else{
@@ -408,7 +409,7 @@ function inning_button() {
 
 
 // play ball 눌렀을 때
-$(document).on("click", "#play_ball", function(){
+function play_button(){
     home_list = ''
     away_list = ''
     for(var i = 1; i <= 12; i++){
@@ -431,7 +432,8 @@ $(document).on("click", "#play_ball", function(){
         type:'POST',
         data : {'home_list' : home_list, 'away_list': away_list},
         success: function(data) {
-            $('#record_board_0').remove();
+//            $('#record_board_0').remove();
+            document.getElementById("record_board_0").style.display = "none";
             for(var i = 0; i < 13; i++){
                 $('#record_board_'+ i).empty();
             }
@@ -471,7 +473,7 @@ $(document).on("click", "#play_ball", function(){
             }
         }
     });
-})
+}
 
 // 스코어보드 attach
 function score_board_append(){
@@ -491,6 +493,8 @@ function score_board_append(){
         }
     }
     for(var i = 1; i < 13; i++){
+        $('#score_board_table tr:eq(1)>td:eq('+ i +')').empty();
+        $('#score_board_table tr:eq(2)>td:eq('+ i +')').empty();
         $('#score_board_table tr:eq(1)>td:eq('+ i +')').append(away_score[i-1]);
         $('#score_board_table tr:eq(2)>td:eq('+ i +')').append(home_score[i-1]);
     }
@@ -1036,7 +1040,8 @@ function pitcher_report_append(){
     else{
         $('#in_report_away').append('<p class="report_font"> 마무리 ' + away_pitcher_cp + ' : <span class="record">' + away_cp_inning + ' ' + away_cp_lost + '실점 ' + away_cp_k + '삼진</span></p>');
     }
-
+    document.getElementById("re_game").style.display = "block";
+    $('#to_gap').append('<br>')
 }
 // 기록창 off
 function off() {
@@ -1048,3 +1053,11 @@ function off() {
 $(document).on("click", "#inning_button_13", function(){
     document.getElementById("report").style.display = "block";
 });
+
+// 재경기
+function re_game(){
+    $('#in_report_home').empty();
+    $('#in_report_away').empty();
+    $('#to_gap').empty();
+    play_button();
+};

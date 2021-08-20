@@ -18,6 +18,7 @@
         <link href="static/css/style.css" rel="stylesheet">
         <!-- JS -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
                 integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
                 crossorigin="anonymous"></script>
@@ -41,8 +42,8 @@
                         <h3>KBO 공식 기록을 활용한 데이터 기반 시뮬레이터</h3>
                             <p>포지션은 중복 불가! (같은 선수는 추가 가능)</p>
                             <p>투수는 선발, 중계, 마무리 3명으로만 이루어지며 투구 수 100개 마다 교체됩니다.</p>
-                            <p>SP : 선발&nbsp;&nbsp; RP : 중계 &nbsp;&nbsp;CP : 마무리</p><br><br><br>
-                            <p>추가 예정 기능 : 재경기, 선수정보, 라인업 공유, 타순 바꾸기</p>
+                            <p>SP : 선발&nbsp;&nbsp; RP : 중계 &nbsp;&nbsp;CP : 마무리</p><br><br>
+                            <p>08.20 업데이트 : 재경기 활성화</p>
                         </div>
                     </div>
                 </div>
@@ -54,25 +55,25 @@
                         <tr>
                             <td colspan="6">Home</td>
                         </tr>
-                        <tr>
+                        <tr class="column">
                             <td>1</td>
                             <td colspan="3">player</td>
                             <td style="color: #00008B; text-shadow:2px 2px 2px gray;"></td>
                             <td><button value="home_1" onclick="cancel_click(this.value);" class="cancel_button">X</button></td>
                         </tr>
-                        <tr>
+                        <tr class="column">
                             <td>2</td>
                             <td colspan="3">player</td>
                             <td style="color: #00008B; text-shadow:2px 2px 2px gray;"></td>
                             <td><button value="home_2" onclick="cancel_click(this.value);" class="cancel_button">X</button></td>
                         </tr>
-                        <tr>
+                        <tr class="column">
                             <td>3</td>
                             <td colspan="3">player</td>
                             <td style="color: #00008B; text-shadow:2px 2px 2px gray;"></td>
                             <td><button value="home_3" onclick="cancel_click(this.value);" class="cancel_button">X</button></td>
                         </tr>
-                        <tr>
+                        <tr class="column">
                             <td>4</td>
                             <td colspan="3">player</td>
                             <td style="color: #00008B; text-shadow:2px 2px 2px gray;"></td>
@@ -372,7 +373,9 @@
                             </tbody>
                         </table>
                     </div>
+                    <div id="re_game" class="re_game"><button onclick="re_game()" class="re_game_button">재경기</button></div>
                     <br>
+                    <div id="to_gap"></div>
                     <div class="live_board">
                         <div class="gap">&nbsp;</div>
                         <div class="inning"><button id="inning_button_1" onclick="inning_button()" class="inning_button">1회</button></div>
@@ -392,7 +395,7 @@
                         <div id="record_board_0" class="record_board"><br>
                             <div>
                                 <button id="play_ball" class="play_ball">
-                                    <div class="play_text">Play Ball !!</div>
+                                    <div onclick="play_button()" class="play_text">Play Ball !!</div>
                                 </button>
                             </div>
                         </div>
