@@ -107,7 +107,8 @@ $(document).ready(function() {
 // 선수 추가(공통)
 function add_player_common(selectedPlayer, selectedPosition, selected_H_A, selectedYear, selectedTeam){
     let Year_and_Team = selectedYear + selectedTeam;
-    Year_and_Team = Year_and_Team.substring(2, 7);
+    console.log(Year_and_Team)
+    Year_and_Team = Year_and_Team.substring(2, 8);
     console.log(Year_and_Team);
     console.log(selected_H_A);
     selectedPlayer = Year_and_Team + '  ' + selectedPlayer

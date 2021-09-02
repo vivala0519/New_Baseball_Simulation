@@ -37,7 +37,7 @@ class Game_process():
             who_is_attack = 'away'
             base = [0, 0, 0]
             inning_score = 0
-            while out != 3:
+            while out < 3:
                 if home_pitcher_count > 100:
                     if home_pitcher_num == 12:
                         pass
@@ -55,7 +55,20 @@ class Game_process():
                 # print(away_hitter_num, '번 타자 ', res[2])
                 inning_report += str(away_hitter_num) + '번 타자 : ' + res[2] + '\n'
                 if h_vs_p[2:4] == '아웃':
-                    out += 1
+                    if h_vs_p[0:2] == '땅볼':
+                        if out < 2:
+                            if base == [1, 0, 0] or base == [1, 1, 0] or base == [1, 1, 1] or base == [1, 0, 1]:
+                                h_vs_p = '병살'
+                                base[0] = 0
+                                out += 2
+                                if out > 3:
+                                    out = 3
+                            else:
+                                out += 1
+                        else:
+                            out += 1
+                    else:
+                        out += 1
                     away_hitter_report += str(away_hitter_num) + '번 아웃\n'
                     # print(h_vs_p, out, '아웃')
                     if h_vs_p[0:2] == '삼진':
@@ -102,6 +115,7 @@ class Game_process():
                 # print('-----------------', inning, '회 말 홈팀 공격 -----------------')
                 inning_report += '<h3 style="color:#9370DB">' + str(inning) + '회 말 Home 공격</h3>\n-------------------\n'
             out = 0
+            base = [0, 0, 0]
             inning_score = 0
             who_is_attack = 'home'
             while out != 3:
@@ -122,7 +136,20 @@ class Game_process():
                 # inning_report += '현재 투수 : ' + res[3] + '\n'
                 inning_report += str(home_hitter_num) + '번 타자 : ' + res[2] + '\n'
                 if h_vs_p[2:4] == '아웃':
-                    out += 1
+                    if h_vs_p[0:2] == '땅볼':
+                        if out < 2:
+                            if base == [1, 0, 0] or base == [1, 1, 0] or base == [1, 1, 1] or base == [1, 0, 1]:
+                                h_vs_p = '병살'
+                                base[0] = 0
+                                out += 2
+                                if out > 3:
+                                    out = 3
+                            else:
+                                out += 1
+                        else:
+                            out += 1
+                    else:
+                        out += 1
                     home_hitter_report += str(home_hitter_num) + '번 아웃\n'
                     # print(h_vs_p, out, '아웃')
                     if h_vs_p[0:2] == '삼진':
